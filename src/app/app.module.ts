@@ -12,12 +12,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
 import { MatSelectModule } from '@angular/material/select';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { TopNavComponent } from './components/top-nav/top-nav.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TelaLoginComponent,
     CadastraUsuarioComponent,
+    SideBarComponent,
+    TopNavComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

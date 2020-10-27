@@ -3,7 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 
-const routes: Routes = [{
+const routes: Routes = [
+{
+  path: '',
+  component: TelaLoginComponent
+},
+{
   path: 'login',
   component: TelaLoginComponent
 },
