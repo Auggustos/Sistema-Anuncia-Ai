@@ -1,4 +1,4 @@
-.example-container {
+.container-sidebar {
     width: 100%;
     height: 100%;
 }
@@ -12,6 +12,7 @@
 
 .example-sidenav {
     width: 230px;
+    background-color: #e4ffdc;
 }
 
 .button-sidebar {

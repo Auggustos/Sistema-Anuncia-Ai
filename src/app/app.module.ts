@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { ProdutosComponent } from './produtos/produtos.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProdutosComponent } from './produtos/produtos.component';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

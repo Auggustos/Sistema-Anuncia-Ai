@@ -5,9 +5,8 @@
 }
 
 .container {
-    width: 87.1vw;
-    height: 48.8vw;
-    background: #7CB962;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center

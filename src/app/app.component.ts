@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Sistema-Horti-Fruti';
+
+  itensSidebar: string[] = ['Meus dados', 'Gerenciar Vendas', 'Cadastrar Produtos', 'Pedidos', 'Ofertas'];
 }
+
