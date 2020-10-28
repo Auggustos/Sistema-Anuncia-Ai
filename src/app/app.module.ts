@@ -19,7 +19,9 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { ProdutosComponent } from './produtos/produtos.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CadastraUsuarioComponent,
     PessoasComponent,
     ProdutosComponent,
+    ListagemProdutosComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatToolbarModule,
     MatListModule,
     HttpClientModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
