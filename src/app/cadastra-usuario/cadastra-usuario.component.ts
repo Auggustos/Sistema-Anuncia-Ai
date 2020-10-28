@@ -14,13 +14,18 @@ export class CadastraUsuarioComponent implements OnInit {
 
   perfis = ['Cliente','Fornecedor'];
 
+  aceitaCartao = ['Sim','Não'];
+
   userForm = new FormGroup({
     nome: new FormControl(''),
     sobrenome: new FormControl(''),
     endereco: new FormControl(''),
+    celular: new FormControl(''),
+    email: new FormControl(''),
     usuario: new FormControl(''),
     senha: new FormControl(''),
     perfil: new FormControl(''),
+    pagamento_cartao: new FormControl('')
   });
 
   ngOnInit(): void {

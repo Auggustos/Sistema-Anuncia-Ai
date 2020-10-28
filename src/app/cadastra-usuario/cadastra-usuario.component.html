@@ -6,18 +6,34 @@
                     Cadastro de usuário
                 </mat-card-title>
                 <form class="cadastro-form" [formGroup]="userForm">
-                    <mat-form-field class="entrada-nome">
-                        <mat-label>Nome</mat-label>
-                        <input matInput placeholder="nome" formControlName="nome">
-                    </mat-form-field>
-                    <mat-form-field class="entrada-sobrenome">
-                        <mat-label>Sobrenome</mat-label>
-                        <input matInput placeholder="sobrenome" formControlName="sobrenome">
-                    </mat-form-field>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Endereço</mat-label>
-                        <input matInput placeholder="endereco" formControlName="endereco">
-                    </mat-form-field>
+                    <div class="row">
+                        <mat-form-field class="entrada-nome">
+                            <mat-label>Nome</mat-label>
+                            <input matInput placeholder="nome" formControlName="nome">
+                        </mat-form-field>
+                        <mat-form-field class="entrada-sobrenome">
+                            <mat-label>Sobrenome</mat-label>
+                            <input matInput placeholder="sobrenome" formControlName="sobrenome">
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Endereço</mat-label>
+                            <input matInput placeholder="endereco" formControlName="endereco">
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Celular</mat-label>
+                            <input matInput type="tel" matInput placeholder="(35)9 99999999" formControlName="celular">
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="email" formControlName="email">
+                        </mat-form-field>
+                    </div>
                     <mat-form-field class="example-full-width">
                         <mat-label>Usuário</mat-label>
                         <input matInput placeholder="usuário123" formControlName="usuario">
@@ -29,15 +45,24 @@
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>Perfil</mat-label>
-                        <mat-select formControlName="perfil">
-                            <mat-option *ngFor="let perfil of perfis" [value]="perfil">
-                                {{perfil}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Perfil</mat-label>
+                            <mat-select formControlName="perfil">
+                                <mat-option *ngFor="let perfil of perfis" [value]="perfil">
+                                    {{perfil}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 'Fornecedor'">
+                            <mat-label>Aceita Cartão?</mat-label>
+                            <mat-select formControlName="pagamento_cartao">
+                                <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao">
+                                    {{opcao}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                     <br>
                     <div class="buttons">
                         <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()">Cadastrar</button></div>

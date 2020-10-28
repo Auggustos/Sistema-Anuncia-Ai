@@ -3,7 +3,7 @@
     height: 100%;
 }
 
-.conteudo-pagina {
+.example-sidenav-content {
     display: flex;
     height: 100%;
     align-items: center;
@@ -20,9 +20,4 @@
 
 .example-spacer {
     flex: 1 1 auto;
-}
-
-.topnav {
-    background-color: green;
-    color: white;
 }
