@@ -22,6 +22,7 @@ import { ProdutosComponent } from './produtos/produtos.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     HttpClientModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

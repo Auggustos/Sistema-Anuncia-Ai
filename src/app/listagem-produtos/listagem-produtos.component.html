@@ -1,24 +1,28 @@
-<body class="body">
-    <div class="container">
-        <div class="centralizar">
-            <div class="teste">
-                <mat-card class="example-card" *ngFor="let produto of produtos">
-                    <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title>{{produto.nome}}</mat-card-title>
-                        <mat-card-subtitle>R${{produto.preco}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-content>
-                        <p>
-                            {{produto.descricao}}
-                        </p>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-button>Adicionar ao carrinho</button>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </div>
+<mat-card class="teste">
+
+    <mat-card class="example-card" *ngFor="let produto of produtos">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{produto.nome}}</mat-card-title>
+            <mat-card-subtitle>R${{produto.preco}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <p>
+                {{produto.descricao}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>Adicionar ao carrinho</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+    </mat-paginator>
+
+    <div *ngIf="pageEvent">
+        <h5>Page Change Event Properties</h5>
+        <div>List length: {{pageEvent.length}}</div>
+        <div>Page size: {{pageEvent.pageSize}}</div>
+        <div>Page index: {{pageEvent.pageIndex}}</div>
     </div>
-</body>
+</mat-card>
