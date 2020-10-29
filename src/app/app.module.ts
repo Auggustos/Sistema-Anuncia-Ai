@@ -23,6 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
+import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.co
     CadastraUsuarioComponent,
     ListagemProdutosComponent,
     CadastraProdutoComponent,
-    AtualizaUsuarioComponent
+    AtualizaUsuarioComponent,
+    GerirVendasComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,

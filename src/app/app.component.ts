@@ -15,9 +15,9 @@ export class AppComponent {
   constructor(private router: Router) { }
   itensSidebar: rotas[] = [
     { nome: 'Meus dados', rota: 'usuario/atualiza' },
-    { nome: 'Gerenciar Vendas', rota: '' },
+    { nome: 'Gerenciar Vendas', rota: 'gerir' },
     { nome: 'Cadastrar Produtos', rota: 'produto/cadastra' },
-    { nome: 'Pedidos', rota: '' },
+    { nome: 'Pedidos', rota: 'pedidos' },
     { nome: 'Ofertas', rota: '' }];
   onRowClicked(item: rotas) {
     this.router.navigate([item.rota]);
