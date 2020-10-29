@@ -17,21 +17,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
-import { PessoasComponent } from './pessoas/pessoas.component';
-import { ProdutosComponent } from './produtos/produtos.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
+import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TelaLoginComponent,
     CadastraUsuarioComponent,
-    PessoasComponent,
-    ProdutosComponent,
-    ListagemProdutosComponent
+    ListagemProdutosComponent,
+    CadastraProdutoComponent,
+    AtualizaUsuarioComponent
   ],
   imports: [
     BrowserModule,

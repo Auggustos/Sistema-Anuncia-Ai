@@ -39,17 +39,17 @@ input.example-right-align {
 
 .button-cadastrar {
     width: 100px;
-    margin-left: 120%;
+    margin-left: 60%;
     background-color: #4CB258;
     color: white;
 }
 
-.entrada-nome {
-    width: 223px;
+.input-preco {
+    width: 155px;
 }
 
-.entrada-sobrenome {
-    width: 223px;
+.input-quantidade {
+    width: 155px;
     margin-left: 20px;
 }
 
@@ -59,7 +59,7 @@ input.example-right-align {
 
 .button-voltar {
     width: 100px;
-    margin-left: 131px;
+    margin-left: 68px;
     background-color: #b24c4c;
     color: white;
 }
@@ -69,6 +69,16 @@ input.example-right-align {
     margin-left: 20px;
 }
 
+img {
+    max-width: 170px;
+    margin-left: 22%;
+}
+
+input[type=file] {
+    padding: 10px;
+    background: #2d2d2d;
+}
+
 .centralizar {
-    margin-top: 9%;
+    margin-top: 13%;
 }

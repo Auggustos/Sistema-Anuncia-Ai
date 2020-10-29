@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Produto } from './classes/produto.class';
+import { Produto } from '../classes/produto.class';
 
 @Component({
   selector: 'app-listagem-produtos',
