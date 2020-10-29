@@ -49,16 +49,16 @@
                         <mat-form-field>
                             <mat-label>Perfil</mat-label>
                             <mat-select formControlName="perfil">
-                                <mat-option *ngFor="let perfil of perfis" [value]="perfil">
-                                    {{perfil}}
+                                <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+                                    {{perfil.texto}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 'Fornecedor'">
+                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 1">
                             <mat-label>Aceita Cartão?</mat-label>
                             <mat-select formControlName="pagamento_cartao">
-                                <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao">
-                                    {{opcao}}
+                                <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao.value">
+                                    {{opcao.texto}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

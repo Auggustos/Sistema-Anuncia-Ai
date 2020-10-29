@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Produto } from '../classes/produto.class';
-
+import { ApiService } from '../shared/services/api.service'
 @Component({
   selector: 'app-listagem-produtos',
   templateUrl: './listagem-produtos.component.html',
@@ -22,7 +22,7 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -30,6 +30,12 @@ export class ListagemProdutosComponent implements OnInit {
   itensSidebar: string[] = ['Meus dados', 'Minhas compras'];
 
   ngOnInit(): void {
+
+    this.apiService.getProdutos().subscribe(response => {
+      this.produtos = response;
+    });
+
+
     this.produtos = [
       { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
       { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },

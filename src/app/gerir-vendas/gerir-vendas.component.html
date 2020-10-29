@@ -9,38 +9,45 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="Cliente">
-                <th mat-header-cell *matHeaderCellDef> Nome </th>
-                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
             </ng-container>
 
-            <!-- Name Column -->
+            <ng-container matColumnDef="Data">
+                <th mat-header-cell *matHeaderCellDef> Data </th>
+                <td mat-cell *matCellDef="let element"> {{element.data | date:'medium'}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="Valor">
                 <th mat-header-cell *matHeaderCellDef> Valor </th>
                 <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
             </ng-container>
 
-            <!-- Weight Column -->
-            <ng-container matColumnDef="Quantidade">
-                <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-                <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
-            </ng-container>
-
             <!-- Symbol Column -->
-            <ng-container matColumnDef="Status">
-                <th mat-header-cell *matHeaderCellDef> Status </th>
+            <ng-container matColumnDef="Situação">
+                <th mat-header-cell *matHeaderCellDef> Situação </th>
                 <td mat-cell *matCellDef="let element">
                     <mat-form-field>
                         <mat-select>
-                            <mat-option *ngFor="let status of statusPedido" [value]="status.id">
-                                {{status.nome}}
+                            <mat-option *ngFor="let situacao of situacaoPedido" [value]="situacao.id">
+                                {{situacao.nome}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Ações">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" matTooltip="Visualizar pedido" (click)="visualizaPedido(element.valor)">
+                        <mat-icon>search</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <button mat-button color="primary" (click)="testaDialog()">testa</button>
     </mat-card-content>
 </mat-card>

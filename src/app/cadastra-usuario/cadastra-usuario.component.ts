@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../shared/services/api.service'
+import{ DialogService } from '../shared/services/dialog/dialog.service'
 
 @Component({
   selector: 'app-cadastra-usuario',
@@ -8,13 +10,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CadastraUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiService, private dialogService: DialogService) { }
 
   hide = true;
 
-  perfis = ['Cliente','Fornecedor'];
+  perfis = [{id:0,texto:'Cliente'},{id:1,texto:'Fornecedor'}];
 
-  aceitaCartao = ['Sim','Não'];
+  aceitaCartao = [{value:true,texto:'Sim'},{value:false,texto:'Não'}];
 
   userForm = new FormGroup({
     nome: new FormControl(''),
@@ -34,7 +36,24 @@ export class CadastraUsuarioComponent implements OnInit {
     window.history.back();
   }
   cadastraUsuario() {
-    console.log(this.userForm.value);
+    const body = this.loadObject();
+    console.log(body);
+    this.apiService.postUsuario(body).subscribe(response =>{
+      this.dialogService.showSuccess("Cadastro", response);
+    });
+  }
+  loadObject(){
+    return{
+      nome: this.userForm.value.nome,
+      sobrenome: this.userForm.value.sobrenome,
+      endereco: this.userForm.value.endereco,
+      celular: this.userForm.value.celular,
+      email: this.userForm.value.email,
+      usuario: this.userForm.value.usuario,
+      senha: this.userForm.value.senha,
+      perfil: this.userForm.value.perfil,
+      pagamento_cartao: this.userForm.value.pagamento_cartao,
+    }
   }
 
 }

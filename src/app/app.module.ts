@@ -27,6 +27,9 @@ import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import {MatTableModule} from '@angular/material/table';
 
+import {DialogService} from './shared/services/dialog/dialog.service';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,9 +59,16 @@ import {MatTableModule} from '@angular/material/table';
     MatTooltipModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+    DialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

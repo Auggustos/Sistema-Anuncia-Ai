@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import{ DialogService } from '../shared/services/dialog/dialog.service'
 @Component({
   selector: 'app-gerir-vendas',
   templateUrl: './gerir-vendas.component.html',
@@ -14,75 +15,87 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class GerirVendasComponent implements OnInit {
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Cliente', 'Valor','Quantidade', 'Status'];
+  displayedColumns = ['Cliente','Data', 'Valor','Situação','Ações'];
   expandedElement: ProdutosVendidos | null;
-  statusPedido = [{id: 0, nome: 'Cancelado'},{id: 1, nome: 'Aprovado'},{ id: 2, nome: 'Em trânsito'}];
+  situacaoPedido = [{id: 0, nome: 'Cancelado'},{id: 1, nome: 'Aprovado'},{ id: 2, nome: 'Em trânsito'}];
+
+  constructor(private dialogService: DialogService){ }
   ngOnInit(){
 
 
   }
+
+  testaDialog(){
+    this.dialogService.showSuccess("Deu Bom","Vendas geridas com sucesso!");
+  }
+
+  visualizaPedido(id: number){
+    console.log(id);
+
+  }
+
 }
 
 export interface ProdutosVendidos {
-  nome: string;
+  cliente: string;
   valor: number;
-  quantidade: number;
-  status: number;
+  situacao: number;
+  data: Date;
   }
 const ELEMENT_DATA: ProdutosVendidos[] = [
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:2
+    situacao:2,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:2
+    situacao:2,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:2
+    situacao:2,
+    data: new Date()
   },
   {
-    nome: 'bola',
+    cliente: 'bola',
     valor: 79,
-    quantidade: 3,
-    status:1
+    situacao:1,
+    data: new Date()
   }
 ];
 
