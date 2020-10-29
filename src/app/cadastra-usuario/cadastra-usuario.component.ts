@@ -38,9 +38,8 @@ export class CadastraUsuarioComponent implements OnInit {
   cadastraUsuario() {
     const body = this.loadObject();
     console.log(body);
-    this.apiService.postUsuario(body).subscribe(response =>{
-      this.dialogService.showSuccess("Cadastro", response);
-    });
+    this.apiService.postUsuario(body).subscribe(response =>{});
+    this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido");
   }
   loadObject(){
     return{

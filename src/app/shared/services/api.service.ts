@@ -17,7 +17,11 @@ export class ApiService {
   }
 
   postUsuario(body):Observable<any>{
-    return this.http.post<any>(`${this.url}/register`,body);
+
+    return this.http.post(`${this.url}/register`,body)
+    .pipe();
+
+
   }
 
 
