@@ -22,23 +22,26 @@
 }
 
 .example-card {
-    max-width: 230px;
-    display: inline-block;
-    margin-left: 15px;
-    margin-bottom: 15px;
-}
+    max-width: 15%;
+}   
 
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
 
-.teste {
-    height: 100%;
-    margin-top: 40vh;
-    margin-left: 10vh;
-    overflow-y: visible;
+.container-card{
+    display: flex;
+    flex-wrap: wrap;
 }
+
+.container-card > .example-card {
+    display: inline-block;
+    margin: 10px 0 0 2%;
+    flex-grow: 1;
+    width: calc(100% * (1/4) - 10px - 1px);
+}
+
 
 .mat-drawer-content {
     background-color: #7CB962;

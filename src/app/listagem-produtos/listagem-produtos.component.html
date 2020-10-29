@@ -1,5 +1,6 @@
-<mat-card class="teste">
+    <div class="container-card">
 
+  
     <mat-card class="example-card" *ngFor="let produto of produtos">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
@@ -16,13 +17,4 @@
             <button mat-button>Adicionar ao carrinho</button>
         </mat-card-actions>
     </mat-card>
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-    </mat-paginator>
-
-    <div *ngIf="pageEvent">
-        <h5>Page Change Event Properties</h5>
-        <div>List length: {{pageEvent.length}}</div>
-        <div>Page size: {{pageEvent.pageSize}}</div>
-        <div>Page index: {{pageEvent.pageIndex}}</div>
-    </div>
-</mat-card>
+</div>
