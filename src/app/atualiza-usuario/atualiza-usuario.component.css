@@ -1,10 +1,6 @@
-.login-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
-
-.example-full-width {
+.cadastro-form {
+    min-width: 200px;
+    max-width: 466px;
     width: 100%;
 }
 
@@ -12,9 +8,12 @@
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center
+}
+
+.example-full-width {
+    width: 100%;
 }
 
 .example-container .mat-form-field+.mat-form-field {
@@ -38,13 +37,38 @@ input.example-right-align {
     background-color: #7CB962;
 }
 
-.button-login {
+.button-cadastrar {
     width: 100px;
-    margin-left: 35%;
+    margin-left: 120%;
     background-color: #4CB258;
     color: white;
 }
 
+.entrada-nome {
+    width: 223px;
+}
+
+.entrada-sobrenome {
+    width: 223px;
+    margin-left: 20px;
+}
+
+.buttons {
+    display: inline-block;
+}
+
+.button-voltar {
+    width: 100px;
+    margin-left: 131px;
+    background-color: #b24c4c;
+    color: white;
+}
+
+.entrada-cartao {
+    width: 223px;
+    margin-left: 20px;
+}
+
 .centralizar {
-    margin-top: 14%;
+    margin-top: 9%;
 }

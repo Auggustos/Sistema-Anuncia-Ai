@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
-  selector: 'app-cadastra-usuario',
-  templateUrl: './cadastra-usuario.component.html',
-  styleUrls: ['./cadastra-usuario.component.css']
+  selector: 'app-atualiza-usuario',
+  templateUrl: './atualiza-usuario.component.html',
+  styleUrls: ['./atualiza-usuario.component.css']
 })
-export class CadastraUsuarioComponent implements OnInit {
+export class AtualizaUsuarioComponent implements OnInit {
 
   constructor() { }
 
@@ -22,8 +23,6 @@ export class CadastraUsuarioComponent implements OnInit {
     endereco: new FormControl(''),
     celular: new FormControl(''),
     email: new FormControl(''),
-    usuario: new FormControl(''),
-    senha: new FormControl(''),
     perfil: new FormControl(''),
     pagamento_cartao: new FormControl('')
   });
@@ -33,7 +32,7 @@ export class CadastraUsuarioComponent implements OnInit {
   goBack() {
     window.history.back();
   }
-  cadastraUsuario() {
+  atualizaUsuario() {
     console.log(this.userForm.value);
   }
 
