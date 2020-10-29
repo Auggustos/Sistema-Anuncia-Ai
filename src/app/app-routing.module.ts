@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
+import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
   {
     path: 'produto/cadastra',
     component: CadastraProdutoComponent
+  },
+  {
+    path: 'pedidos',
+    component: PedidosComponent
+  },
+  {
+    path: 'gerir',
+    component: GerirVendasComponent
   }
 ];
 
