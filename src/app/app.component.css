@@ -1,20 +1,20 @@
 .container-sidebar {
     width: 100%;
     height: 100%;
-    background-color: #7CB962;
+    background-color: white;
 }
 
-.container{
+.container {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-  }
+}
 
-  .content{
+.content {
     flex-shrink: 1;
     flex-grow: 1;
-  }
+}
 
 .conteudo-pagina {
     display: flex;
@@ -25,7 +25,7 @@
 
 .example-sidenav {
     width: 230px;
-    background-color: #e4ffdc;
+    background-color: #3697dd23;
 }
 
 .button-sidebar {
@@ -37,15 +37,16 @@
 }
 
 .topnav {
-    background-color: green;
+    background-color: #0476BB;
     color: white;
 }
 
 .mat-drawer-content {
-    background-color: #7CB962;
+    background-color: white;
 }
 
-html, body{
+html,
+body {
     height: 100%;
     padding: 0;
     margin: 0;
