@@ -5,6 +5,11 @@ exports.up = function(knex) {
     table.string("nome").notNullable()
     table.string("sobrenome").notNullable()
     table.string("email").unique().notNullable()
+    table.string("usuario").unique().notNullable()
+    table.integer("perfil").notNullable()
+    table.string("endereco").notNullable()
+    table.string("celular", 25).notNullable()
+    table.boolean("pagamento_cartao").notNullable()
     table.string("senha").notNullable()
     table.timestamps(false, true);
   })
