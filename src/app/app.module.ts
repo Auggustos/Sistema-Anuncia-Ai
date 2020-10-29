@@ -25,6 +25,7 @@ import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.co
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     HttpClientModule,
     MatTooltipModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
