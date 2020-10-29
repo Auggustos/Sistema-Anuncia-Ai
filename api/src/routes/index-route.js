@@ -2,6 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
+const connection = require('../database/connection')
+const UserController = require('../controllers/UserController')
+ 
 
 router.get('/', (req, res, next) => {
   res.status(200).send({
@@ -10,8 +13,8 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.post('/login', (req, res, next) => {
-  
-})
+router.post('/login', UserController.login)
+
+router.post('/register', UserController.newUser)
 
 module.exports = router;
