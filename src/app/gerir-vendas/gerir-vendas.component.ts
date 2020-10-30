@@ -20,6 +20,7 @@ export class GerirVendasComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   displayedColumns = ['Cliente', 'Data', 'Valor', 'Situação', 'Ações'];
   expandedElement: ProdutosVendidos | null;
+
   situacaoPedido = [{ id: 0, nome: 'Cancelado' }, { id: 1, nome: 'Aprovado' }, { id: 2, nome: 'Em trânsito' }];
 
   constructor(private dialogService: DialogService, public dialog: MatDialog) { }
@@ -48,12 +49,14 @@ export class GerirVendasComponent implements OnInit {
 
 }
 
+
 export interface ProdutosVendidos {
   cliente: string;
   valor: number;
   situacao: number;
   data: Date;
 }
+
 const ELEMENT_DATA: ProdutosVendidos[] = [
   {
     cliente: 'Paulo',
