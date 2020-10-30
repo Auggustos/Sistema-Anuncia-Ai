@@ -20,7 +20,7 @@
     ],
     "rules": {
       "camelcase": "off",
-      "prettier/prettier" : ["error", { "endOfLine": "auto"}],
+      "prettier/prettier" : "error",
       "class-methods-use-this": "off",
       "import/extensions": [
         "error",
