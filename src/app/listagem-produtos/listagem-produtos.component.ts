@@ -34,22 +34,6 @@ export class ListagemProdutosComponent implements OnInit {
     this.apiService.getProdutos().subscribe(response => {
       this.produtos = response;
     });
-
-
-    this.produtos = [
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-    ]
   }
 
 

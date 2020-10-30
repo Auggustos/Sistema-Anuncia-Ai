@@ -20,15 +20,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 
-import {DialogService} from './shared/services/dialog/dialog.service';
-import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { DialogService } from './shared/services/dialog/dialog.service';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { ModalVisualizarPedidoComponent } from './modais/modal-visualizar-pedido/modal-visualizar-pedido.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
     CadastraProdutoComponent,
     AtualizaUsuarioComponent,
     GerirVendasComponent,
-    PedidosComponent
+    PedidosComponent,
+    ModalVisualizarPedidoComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,9 @@ import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
       useValue: {}
     },
     DialogService
+  ],
+  entryComponents: [
+    ModalVisualizarPedidoComponent
   ],
   bootstrap: [AppComponent]
 })
