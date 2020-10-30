@@ -11,8 +11,19 @@ export interface rotas {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'Sistema-Horti-Fruti';
+
+  badge: number;
+
   constructor(private router: Router) { }
+
+  onBadge(event) {
+    console.log("cheguei")
+    this.badge = event.valor;
+    console.log(event)
+  }
+
   itensSidebar: rotas[] = [
     { nome: 'Meus dados', rota: 'usuario/atualiza' },
     { nome: 'Gerenciar Vendas', rota: 'gerir' },
@@ -21,6 +32,10 @@ export class AppComponent {
     { nome: 'Ofertas', rota: '' }];
   onRowClicked(item: rotas) {
     this.router.navigate([item.rota]);
+  }
+
+  toCarrinho(){
+    this.router.navigate(['/carrinho']);
   }
 }
 

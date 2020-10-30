@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
+import { CarrinhoComponent } from './carrinho/carrinho.component';
+import { ErrorComponent } from './error/error.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -35,6 +37,14 @@ const routes: Routes = [
   {
     path: 'gerir',
     component: GerirVendasComponent
+  },
+  {
+    path: 'carrinho',
+    component: CarrinhoComponent
+  },
+  {
+    path: '**',
+    component: ErrorComponent
   }
 ];
 
