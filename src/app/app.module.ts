@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -31,6 +31,7 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
+import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
 
 
 
@@ -72,6 +73,13 @@ import { AppComponent } from './app.component';
     FormsModule,
   ],
   providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: MatDialogRef,
       useValue: {}

@@ -8,15 +8,16 @@ import { ErrorComponent } from './error/error.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { AuthGuard } from './shared/services/auth.service';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 const routes: Routes = [
   {
     path: 'usuario/cadastra',
-    component: CadastraUsuarioComponent
+    component: CadastraUsuarioComponent, canActivate: [AuthGuard]
   },
   {
     path: 'usuario/atualiza',
-    component: AtualizaUsuarioComponent
+    component: AtualizaUsuarioComponent, canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -28,19 +29,19 @@ const routes: Routes = [
   },
   {
     path: 'produto/cadastra',
-    component: CadastraProdutoComponent
+    component: CadastraProdutoComponent, canActivate: [AuthGuard]
   },
   {
     path: 'pedidos',
-    component: PedidosComponent
+    component: PedidosComponent, canActivate: [AuthGuard]
   },
   {
     path: 'gerir',
-    component: GerirVendasComponent
+    component: GerirVendasComponent, canActivate: [AuthGuard]
   },
   {
     path: 'carrinho',
-    component: CarrinhoComponent
+    component: CarrinhoComponent, canActivate: [AuthGuard]
   },
   {
     path: '**',
