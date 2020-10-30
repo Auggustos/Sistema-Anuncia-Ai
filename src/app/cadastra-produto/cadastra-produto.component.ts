@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Produto } from '../classes/produto.class'
+import { Produto } from '../classes/produto.class';
+import { Router } from "@angular/router";
+
+import{ DialogService } from '../shared/services/dialog/dialog.service'
 @Component({
   selector: 'app-cadastra-produto',
   templateUrl: './cadastra-produto.component.html',
@@ -8,7 +11,7 @@ import { Produto } from '../classes/produto.class'
 })
 export class CadastraProdutoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogService: DialogService,private router: Router) { }
 
   uploadData = new FormData();
 
@@ -38,6 +41,9 @@ export class CadastraProdutoComponent implements OnInit {
   cadastraProduto() {
     this.productForm.controls['imagem'].setValue(this.uploadData);
     console.log(this.productForm.value);
+    this.dialogService.showSuccess(`Produto: ${this.productForm.value.nome} cadastrado com sucesso!`,'Produto cadastrado').then(result => {
+      this.router.navigate(['']);
+    })
   }
 
   readURL(event): void {

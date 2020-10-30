@@ -18,7 +18,7 @@ import { ModalVisualizarPedidoComponent } from '../modais/modal-visualizar-pedid
 export class GerirVendasComponent implements OnInit {
   situacaoSelecionada = 0;
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Cliente', 'Data', 'Valor', 'Situação', 'Ações'];
+  displayedColumns = ['Cliente', 'Celular', 'Data', 'Valor', 'Situação', 'Ações'];
   expandedElement: ProdutosVendidos | null;
 
   situacaoPedido = [{ id: 0, nome: 'Cancelado' }, { id: 1, nome: 'Aprovado' }, { id: 2, nome: 'Em trânsito' }];
@@ -52,6 +52,7 @@ export class GerirVendasComponent implements OnInit {
 
 export interface ProdutosVendidos {
   cliente: string;
+  celular: string;
   valor: number;
   situacao: number;
   data: Date;
@@ -60,54 +61,63 @@ export interface ProdutosVendidos {
 const ELEMENT_DATA: ProdutosVendidos[] = [
   {
     cliente: 'Paulo',
+    celular: '991543979',
     valor: 79,
     situacao: 1,
     data: new Date()
   },
   {
     cliente: 'Marcos',
+    celular: '998454746',
     valor: 79,
     situacao: 2,
     data: new Date()
   },
   {
     cliente: 'Juca',
+    celular: '991543979',
     valor: 79,
     situacao: 2,
     data: new Date()
   },
   {
     cliente: 'Xuxa',
+    celular: '992297930',
     valor: 79,
     situacao: 1,
     data: new Date()
   },
   {
     cliente: 'Sasha',
+    celular: '992297930',
     valor: 79,
     situacao: 1,
     data: new Date()
   },
   {
     cliente: 'Pelé',
+    celular: '991543979',
     valor: 79,
     situacao: 1,
     data: new Date()
   },
   {
     cliente: 'Cr7',
+    celular: '998454746',
     valor: 79,
     situacao: 1,
     data: new Date()
   },
   {
     cliente: 'Messi',
+    celular: '992297930',
     valor: 79,
     situacao: 2,
     data: new Date()
   },
   {
     cliente: 'Ribamar',
+    celular: '991543979',
     valor: 79,
     situacao: 1,
     data: new Date()

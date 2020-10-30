@@ -15,9 +15,6 @@ export class PedidosComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   displayedColumns = ['Vendedor', 'Data', 'Valor', 'Situação', 'Ações'];
   expandedElement: ProdutosVendidos | null;
-
-  situacaoPedido = [{ id: 0, nome: 'Cancelado' }, { id: 1, nome: 'Aprovado' }, { id: 2, nome: 'Em trânsito' }];
-
   constructor(private dialogService: DialogService, public dialog: MatDialog) { }
   ngOnInit() {
 
@@ -48,7 +45,7 @@ export class PedidosComponent implements OnInit {
 export interface ProdutosVendidos {
   vendedor: string;
   valor: number;
-  situacao: number;
+  situacao: string;
   data: Date;
 }
 
@@ -56,55 +53,55 @@ const ELEMENT_DATA: ProdutosVendidos[] = [
   {
     vendedor: 'Paulo',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   },
   {
     vendedor: 'Marcos',
     valor: 79,
-    situacao: 2,
+    situacao: 'Em trânsito',
     data: new Date()
   },
   {
     vendedor: 'Juca',
     valor: 79,
-    situacao: 2,
+    situacao: 'Em trânsito',
     data: new Date()
   },
   {
     vendedor: 'Xuxa',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   },
   {
     vendedor: 'Sasha',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   },
   {
     vendedor: 'Pelé',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   },
   {
     vendedor: 'Cr7',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   },
   {
     vendedor: 'Messi',
     valor: 79,
-    situacao: 2,
+    situacao: 'Em trânsito',
     data: new Date()
   },
   {
     vendedor: 'Ribamar',
     valor: 79,
-    situacao: 1,
+    situacao: 'Aprovado',
     data: new Date()
   }
 ];

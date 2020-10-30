@@ -51,3 +51,19 @@ tr.example-element-row:not(.example-expanded-row):active {
     background-color: #b24c4c;
     color: white;
 }
+
+.aprovado {
+    color: blue;
+}
+
+.em-transito {
+    color: maroon;
+}
+
+.cancelado {
+    color: red;
+}
+
+.mat-header-cell {
+    width: 25%;
+}

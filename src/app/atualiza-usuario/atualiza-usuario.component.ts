@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import{ DialogService } from '../shared/services/dialog/dialog.service'
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-atualiza-usuario',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AtualizaUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogService: DialogService,private router: Router) { }
 
   hide = true;
 
@@ -34,6 +35,9 @@ export class AtualizaUsuarioComponent implements OnInit {
   }
   atualizaUsuario() {
     console.log(this.userForm.value);
+    this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`,'Usuario Atualizado!').then(result => {
+      this.router.navigate(['']);
+    })
   }
 
 }
