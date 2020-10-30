@@ -5,6 +5,9 @@
   "username": "thiagosiqueira",
   "password": "srcobgvyr1",
   "database": "marketplaceappu",
+  "entities" : [
+    "./src/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
