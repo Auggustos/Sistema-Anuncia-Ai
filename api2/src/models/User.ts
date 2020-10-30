@@ -1,12 +1,6 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('usuarios') // referencia da tabela no banco de dados
+@Entity('usuarios')
 class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -35,16 +29,10 @@ class User {
   senha: string;
 
   @Column()
-  perfil: number;
+  perfil: string;
 
   @Column('boolean')
   pagamento_cartao: boolean;
-
-  @CreateDateColumn()
-  criado_em: Date;
-
-  @UpdateDateColumn()
-  atualizado_em: Date;
 }
 
 export default User;

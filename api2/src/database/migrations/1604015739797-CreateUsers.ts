@@ -37,13 +37,11 @@ export default class CreateUsers1604015739797 implements MigrationInterface {
             name: 'email',
             type: 'varchar',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'usuario',
             type: 'varchar',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'senha',
@@ -59,16 +57,6 @@ export default class CreateUsers1604015739797 implements MigrationInterface {
             name: 'pagamento_cartao',
             type: 'boolean',
             isNullable: true,
-          },
-          {
-            name: 'criado_em',
-            type: 'timestamp',
-            default: 'now()',
-          },
-          {
-            name: 'atualizado_em',
-            type: 'timestamp',
-            default: 'now()',
           },
         ],
       })

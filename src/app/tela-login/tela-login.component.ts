@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-tela-login',
@@ -7,15 +9,14 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./tela-login.component.css']
 })
 export class TelaLoginComponent implements OnInit {
-  constructor() { }
+  constructor( private authService: AuthService,
+    private router: Router,) { }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+    loginForm = new FormGroup({
+      usuario: new FormControl('',Validators.required),
+      senha: new FormControl('',Validators.required),
+    });
   usuarios: { user: String, senha: String }[] = [];
-  usuario = '';
-  senha = '';
 
   hide = true;
 
@@ -29,17 +30,12 @@ export class TelaLoginComponent implements OnInit {
   }
 
   verificaUser() {
-    let flag = 0;
-    this.usuarios.forEach(user => {
-      if (this.usuario == user.user && this.senha == user.senha) {
-        flag = 1;
-      }
-    })
-    if (flag == 1) {
-      console.log("acesso permitido")
-    } else {
-      console.log("acesso negado!")
-    }
+
+    this.authService.login(this.loginForm.value.usuario, this.loginForm.value.senha).subscribe(
+      success => this.router.navigate(['']),
+      error => console.log(error)
+    );
+    
   }
 
 }
