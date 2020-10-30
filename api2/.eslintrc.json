@@ -19,10 +19,7 @@
         "prettier"
     ],
     "rules": {
-<<<<<<< HEAD
-=======
       "camelcase": "off",
->>>>>>> Master
       "prettier/prettier" : "error",
       "class-methods-use-this": "off",
       "import/extensions": [
