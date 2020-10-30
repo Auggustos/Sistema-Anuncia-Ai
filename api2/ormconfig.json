@@ -1,0 +1,14 @@
+{
+  "type": "mysql",
+  "host": "mysql741.umbler.com",
+  "port": 41890,
+  "username": "thiagosiqueira",
+  "password": "srcobgvyr1",
+  "database": "marketplaceappu",
+  "migrations": [
+    "./src/database/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
+}
