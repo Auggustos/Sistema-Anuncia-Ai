@@ -36,7 +36,7 @@ class AuthenticateUserService {
     // 2 parametro - chave secreta
 
     const { secret, expiresIn } = authConfig.jwt;
-    const token = sign({}, secret, {
+    const token = sign({ perfil: user.perfil }, secret, {
       subject: user.id,
       expiresIn,
     });
