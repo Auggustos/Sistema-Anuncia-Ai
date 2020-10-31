@@ -23,11 +23,11 @@ export class AtualizaUsuarioComponent implements OnInit {
   aceitaCartao = ['Sim', 'Não'];
 
   userForm = new FormGroup({
-    nome: new FormControl(this.authService.getUser()),
-    sobrenome: new FormControl(this.authService.getUserSobrenome()),
-    endereco: new FormControl(this.authService.getUserEndereco()),
-    celular: new FormControl(this.authService.getUserCelular()),
-    email: new FormControl(this.authService.getUserEmail()),
+    nome: new FormControl(''),
+    sobrenome: new FormControl(''),
+    endereco: new FormControl(''),
+    celular: new FormControl(''),
+    email: new FormControl(''),
     perfil: new FormControl('', Validators.required),
     senhaAntiga: new FormControl('', [Validators.required, Validators.minLength(6)]),
     senhaNova1: new FormControl('', Validators.minLength(6)),
@@ -37,10 +37,16 @@ export class AtualizaUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getUsuario(this.authService.getUserId()).subscribe(response => {
       console.log(response)
+        this.userForm.controls['nome'].setValue(response.nome);
+        this.userForm.controls['sobrenome'].setValue(response.sobrenome);
+        this.userForm.controls['endereco'].setValue(response.endereco);
+        this.userForm.controls['celular'].setValue(response.celular);
+        this.userForm.controls['email'].setValue(response.email);
+        this.userForm.controls['perfil'].setValue(response.perfil);
     }, error => {
 
     });
-    //this.userForm.controls['nome'].setValue(usuario.nome)
+
   }
   goBack() {
     window.history.back();
