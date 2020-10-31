@@ -4,6 +4,7 @@ import ICreateProductDTO from '../dtos/ICreateProductDTO';
 // - createAndSave
 export default interface IUsersRepository {
   findAll(): Promise<Product[]>;
+  findById(id: string): Promise<Product | undefined>;
   create(data: ICreateProductDTO): Promise<Product>;
   save(product: Product): Promise<Product>;
 }
