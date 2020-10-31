@@ -18,7 +18,6 @@ productsRouter.post(
   upload.single('imagem'),
   async (request, response) => {
     try {
-      console.log(request.file);
       const { id, perfil } = request.user;
       const { descricao, preco, id_usuario, quantidade, nome } = request.body;
 
@@ -40,6 +39,7 @@ productsRouter.post(
           kernel: sharp.kernel.nearest,
           fit: 'contain',
           position: 'right top',
+          background: '#fff',
         })
         .toBuffer()
         .then(info => {
