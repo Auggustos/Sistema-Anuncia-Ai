@@ -17,11 +17,11 @@ export class ApiService {
   }
 
   postUsuario(body):Observable<any>{
-
     return this.http.post(`${this.url}/register`,body)
     .pipe();
-
-
+  }
+  postProdutos(body): Observable<any> {
+    return this.http.post(`${this.url}/products`,body).pipe();
   }
 
 

@@ -24,14 +24,17 @@ export class AppComponent implements OnInit {
   }
 
   usuario = '';
+  perfil = 3;
 
   ngOnInit() {
-
+   
     if (!this.authService.isLoggedIn()) {
       this.usuario = '';
+      this.perfil = 3;
     } else {
       if (this.authService.getUser().length > 1) {
         this.usuario = this.authService.getUser();
+        this.perfil = parseInt(this.authService.getPerfil());
       }
     }
   }
@@ -40,8 +43,10 @@ export class AppComponent implements OnInit {
     location.reload();
     this.authService.logout();
     this.usuario = this.authService.getUser();
+    this.perfil = parseInt(this.authService.getPerfil());
     if (!this.authService.isLoggedIn()) {
       this.usuario = '';
+      this.perfil = 3;
     }
     this.dialogService.showSuccess("Logout realizado com sucesso!","Logout");
   }
