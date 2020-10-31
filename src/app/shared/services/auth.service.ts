@@ -13,25 +13,38 @@ export class AuthService {
 
   private apiRoot = 'http://localhost:3000/';
 
+  response;
+
   constructor(private http: HttpClient) { }
 
   private setSession(authResult) {
+    console.log(authResult);
+    this.response = authResult;
     const token = authResult.token;
-    const payload = <JWTPayload> jwtDecode(token);
+    const payload = this.decode(token);
     const expiresAt = moment.unix(payload.exp);
 
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('usuario', authResult.user.nome);
+  }
+
+  private decode(token: string) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      console.log(`Nao foi possivel decodificar o token`)
+    }
   }
 
   get token(): string {
     return localStorage.getItem('token');
   }
 
-  login(username: string, password: string) {
+  login(usuario: string, senha: string) {
     return this.http.post(
       this.apiRoot.concat('sessions'),
-      { username, password }
+      { usuario, senha }
     ).pipe(
       tap(response => this.setSession(response)),
       shareReplay(),
@@ -72,6 +85,11 @@ export class AuthService {
 
   isLoggedOut() {
     return !this.isLoggedIn();
+  }
+
+  getUser(){
+    const retorno = localStorage.getItem('usuario');
+    return retorno;
   }
 }
 

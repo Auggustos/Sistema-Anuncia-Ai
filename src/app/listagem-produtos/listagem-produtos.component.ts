@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
+import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-listagem-produtos',
   templateUrl: './listagem-produtos.component.html',
@@ -22,7 +23,7 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,private authService: AuthService) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -31,9 +32,11 @@ export class ListagemProdutosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.apiService.getProdutos().subscribe(response => {
-      this.produtos = response;
-    });
+    console.log(this.authService.getUser());
+
+    //this.apiService.getProdutos().subscribe(response => {
+    //  this.produtos = response;
+    //});
   }
 
 

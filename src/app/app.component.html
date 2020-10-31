@@ -1,13 +1,19 @@
 <div class="container">
     <mat-toolbar class="topnav">
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button>
+            <mat-icon>menu</mat-icon>
+        </button>
         <span>Marketplace</span>
         <span class="example-spacer"></span>
+
+        <span>{{usuario}}</span>
+
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
+            <mat-icon>power_settings_new</mat-icon>
+        </button>
         <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="carrinho" (click)="toCarrinho()">
-        <mat-icon [matBadge]="carrinho.badge" matBadgeColor="warn">shopping_cart</mat-icon>
-    </button>
+            <mat-icon [matBadge]="carrinho.badge" matBadgeColor="warn">shopping_cart</mat-icon>
+        </button>
     </mat-toolbar>
     <mat-drawer-container class="container-sidebar" autosize>
         <mat-drawer #drawer class="example-sidenav" mode="side" opened>
