@@ -4,6 +4,8 @@ import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../config/auth';
 
+import AppError from '../errors/AppError';
+
 interface Request {
   usuario: string;
   senha: string;
@@ -20,7 +22,7 @@ class AuthenticateUserService {
     const user = await usersRepository.findOne({ where: { usuario } });
 
     if (!user) {
-      throw new Error('Combinação de usuário / senha inválido.');
+      throw new AppError('Combinação de usuário / senha inválido.', 401);
     }
 
     // user.senha - senha criptografada
@@ -28,7 +30,7 @@ class AuthenticateUserService {
     const passwordMatched = await compare(senha, user.senha);
 
     if (!passwordMatched) {
-      throw new Error('Combinação de usuário / senha inválido.');
+      throw new AppError('Combinação de usuário / senha inválido.', 401);
     }
 
     // Usuário autenticado - primeiro parametro payload informações

@@ -3,6 +3,7 @@ import { hash } from 'bcryptjs';
 import Product from '../models/Product';
 
 import uploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
   id: string;
@@ -26,11 +27,11 @@ class CreateProductService {
     imagemFileName,
   }: Request): Promise<Product> {
     if (perfil === 0) {
-      throw new Error('Você não é um vendedor');
+      throw new AppError('Você não é um vendedor', 401);
     }
 
     if (!id) {
-      throw new Error('Você não está logado');
+      throw new AppError('Você não está logado', 401);
     }
     const productsRepository = getRepository(Product);
 
