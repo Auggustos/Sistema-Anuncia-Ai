@@ -14,7 +14,6 @@ export class AuthService {
   private apiRoot = 'http://localhost:3000/';
 
   response;
-
   constructor(private http: HttpClient) { }
 
   private setSession(authResult) {
@@ -34,6 +33,7 @@ export class AuthService {
     localStorage.setItem('userEndereco', authResult.user.endereco);
     localStorage.setItem('userPagamentoCartao', authResult.user.pagamento_cartao);
     localStorage.setItem('userSobrenome', authResult.user.sobrenome);
+    localStorage.setItem('carrinho', '');
 
 
   }
@@ -67,6 +67,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('carrinho');
   }
 
   refreshToken() {
@@ -135,11 +136,18 @@ export class AuthService {
     const retorno = localStorage.getItem('userSobrenome');
     return retorno;
   }
+  setCarrinho( carrinho: string ){
+    localStorage.setItem('carrinho', carrinho);
+  }
 
+  getCarrinho() {
+    const retorno = localStorage.getItem('carrinho');
+    return retorno;
+  }
 
-
-
-
+  limpaCarrinho(){
+    localStorage.setItem('carrinho', '');
+  }
 }
 
 @Injectable()
