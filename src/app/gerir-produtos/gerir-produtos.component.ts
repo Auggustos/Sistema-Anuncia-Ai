@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
@@ -24,7 +25,7 @@ export class GerirProdutosComponent implements OnInit {
     }
   }
 
-  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -44,7 +45,8 @@ export class GerirProdutosComponent implements OnInit {
   }
 
   editaAnuncio(idProduto: string) {
-    console.log(idProduto);
+    let url = 'produto/ID/atualiza';
+    this.router.navigateByUrl(url.replace('ID',idProduto)).then(success => location.reload())
   }
   excluiAnuncio(idProduto: string) {
     console.log(idProduto);

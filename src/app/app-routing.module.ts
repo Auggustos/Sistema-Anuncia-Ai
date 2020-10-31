@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'produto/gerir',
     component: GerirProdutosComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'produto/:id/atualiza',
+    component: AtualizaProdutoComponent, canActivate: [AuthGuard]
   },
   {
     path: '**',
