@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import{ DialogService } from '../shared/services/dialog/dialog.service'
 import { Router } from "@angular/router";
 import { ApiService } from '../shared/services/api.service';
@@ -15,8 +15,9 @@ export class AtualizaUsuarioComponent implements OnInit {
   constructor(private dialogService: DialogService,private router: Router,private apiService: ApiService, private authService: AuthService) { }
 
   hide = true;
+  hide1 = true;
 
-  perfis = ['Cliente','Fornecedor'];
+  perfis = [{id:0,texto:'Cliente'},{id:1,texto:'Fornecedor'}];
 
   aceitaCartao = ['Sim','Não'];
 
@@ -27,9 +28,10 @@ export class AtualizaUsuarioComponent implements OnInit {
     celular: new FormControl(this.authService.getUserCelular()),
     email: new FormControl(this.authService.getUserEmail()),
     perfil: new FormControl('',Validators.required),
-    pagamento_cartao: new FormControl()
+    senhaAntiga: new FormControl('',[Validators.required, Validators.minLength(6)]),
+    senhaNova1: new FormControl('',Validators.minLength(6)),
+    pagamento_cartao: new FormControl(),
   });
-
 
   ngOnInit(): void {
 
@@ -38,10 +40,30 @@ export class AtualizaUsuarioComponent implements OnInit {
     window.history.back();
   }
   atualizaUsuario() {
-
-    this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`,'Usuario Atualizado!').then(result => {
-      this.router.navigate(['']);
-    })
+    const body = this.loadBody();
+    this.apiService.atualizaUsuario(body,this.authService.token).subscribe(success =>{
+      this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`,'Usuario Atualizado!').then(result => {
+        this.router.navigate(['']).then(success => location.reload())
+      });
+    },
+    error => {
+      this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
+    });
   }
+
+  loadBody(){
+    return {
+      nome: this.userForm.value.nome,
+      sobrenome: this.userForm.value.sobrenome,
+      endereco: this.userForm.value.endereco,
+      celular: this.userForm.value.celular,
+      email: this.userForm.value.email,
+      senha_antiga: this.userForm.value.senhaAntiga,
+      senha: this.userForm.value.senhaNova1,
+      perfil: this.userForm.value.perfil,
+      pagamento_cartao: this.userForm.value.pagamento_cartao
+  }
+  }
+
 
 }
