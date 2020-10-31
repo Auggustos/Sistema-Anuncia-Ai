@@ -24,8 +24,9 @@ export class ListagemProdutosComponent implements OnInit {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
+  carrinho: { produtoId: string, idCliente: string, preco: number, quantidade: number }[] = [];
 
-  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService,private router: Router,) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -42,13 +43,35 @@ export class ListagemProdutosComponent implements OnInit {
         }
       })
     },
-    error =>{
-      this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
-    });
+      error => {
+        this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
+      });
   }
-  adicionaAoCarrinho(idProduto:string){
-    if(!this.authService.isLoggedIn()){
-      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!","Autentique-se!").then(result =>{
+  adicionaAoCarrinho(idProduto: string, precoProduto: number) {
+    if (this.carrinho.length > 0) {
+      let flag = 0;
+      for (let i = 0; i < this.carrinho.length; i++) {
+        if (this.carrinho[i].produtoId == idProduto) {
+          this.carrinho[i].quantidade++;
+          var textoCarrinho = JSON.stringify(this.carrinho);
+          this.authService.setCarrinho(textoCarrinho);
+          flag = 1
+          break;
+        }
+      }
+      if (flag == 0) {
+        this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1 });
+        var textoCarrinho = JSON.stringify(this.carrinho);
+        this.authService.setCarrinho(textoCarrinho);
+      }
+    } else {
+      this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1 });
+      var textoCarrinho = JSON.stringify(this.carrinho);
+      this.authService.setCarrinho(textoCarrinho);
+    }
+
+    if (!this.authService.isLoggedIn()) {
+      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       })
     }

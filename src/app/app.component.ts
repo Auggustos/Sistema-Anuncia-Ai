@@ -20,14 +20,14 @@ export class AppComponent implements OnInit {
 
   badge: number;
 
-  constructor(private router: Router, private authService: AuthService, private dialogService: DialogService) { 
+  constructor(private router: Router, private authService: AuthService, private dialogService: DialogService) {
   }
-
+  carrinho;
   usuario = '';
   perfil = 3;
 
   ngOnInit() {
-   
+
     if (!this.authService.isLoggedIn()) {
       this.usuario = '';
       this.perfil = 3;
@@ -48,13 +48,7 @@ export class AppComponent implements OnInit {
       this.usuario = '';
       this.perfil = 3;
     }
-    this.dialogService.showSuccess("Logout realizado com sucesso!","Logout");
-  }
-
-  onBadge(event) {
-    console.log("cheguei")
-    this.badge = event.valor;
-    console.log(event)
+    this.dialogService.showSuccess("Logout realizado com sucesso!", "Logout");
   }
 
   itensSidebar: rotas[] = [
@@ -69,6 +63,23 @@ export class AppComponent implements OnInit {
 
   toCarrinho() {
     this.router.navigate(['/carrinho']);
+  }
+
+  onBadge() {
+    if (this.authService.isLoggedIn()) {
+      if (this.authService.getCarrinho()) {
+        this.carrinho = JSON.parse(this.authService.getCarrinho())
+        //console.log(this.carrinho)
+        if (this.carrinho != null) {
+          return this.carrinho.length;
+        } else {
+          return '';
+        }
+      }
+    } else {
+      return '';
+    }
+
   }
 }
 
