@@ -17,7 +17,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   private setSession(authResult) {
-    console.log(authResult);
     this.response = authResult;
     const token = authResult.token;
     const payload = this.decode(token);

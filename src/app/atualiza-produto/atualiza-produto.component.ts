@@ -60,7 +60,7 @@ export class AtualizaProdutoComponent implements OnInit {
 
   cadastraProduto() {
     this.productForm.controls['imagem'].setValue(this.uploadData);
-    console.log(this.productForm.value);
+
     this.dialogService.showSuccess(`Produto: ${this.productForm.value.nome} cadastrado com sucesso!`, 'Produto cadastrado').then(result => {
       this.router.navigate(['']);
     })
