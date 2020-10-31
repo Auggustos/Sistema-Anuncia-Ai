@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from '../shared/services/api.service'
 import{ DialogService } from '../shared/services/dialog/dialog.service'
 
@@ -10,7 +11,7 @@ import{ DialogService } from '../shared/services/dialog/dialog.service'
 })
 export class CadastraUsuarioComponent implements OnInit {
 
-  constructor(private apiService: ApiService, private dialogService: DialogService) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router : Router) { }
 
   hide = true;
 
@@ -39,7 +40,9 @@ export class CadastraUsuarioComponent implements OnInit {
     const body = this.loadObject();
     console.log(body);
     this.apiService.postUsuario(body).subscribe(response =>{});
-    this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido");
+    this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
+      this.router.navigateByUrl('login').then(success => location.reload())
+    });
   }
   loadObject(){
     return{

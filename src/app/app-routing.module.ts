@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'usuario/cadastra',
-    component: CadastraUsuarioComponent, canActivate: [AuthGuard]
+    component: CadastraUsuarioComponent
   },
   {
     path: 'usuario/atualiza',
