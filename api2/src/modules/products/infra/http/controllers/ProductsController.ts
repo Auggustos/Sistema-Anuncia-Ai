@@ -5,6 +5,7 @@ import CreateProductService from '@modules/products/services/CreateProductServic
 import sharp from 'sharp';
 import fs from 'fs';
 import ShowProductService from '@modules/products/services/ShowProductService';
+import UpdateProductService from '@modules/products/services/UpdateProductService';
 
 export default class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -64,6 +65,24 @@ export default class ProductsController {
     const product = await showProduct.execute(id);
 
     delete product.usuario.senha;
+
+    return response.json(product);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { id, descricao, preco, quantidade } = request.body;
+    const updateProduct = container.resolve(UpdateProductService);
+
+    const product = await updateProduct.execute({
+      user_id,
+      id,
+      descricao,
+      preco,
+      quantidade,
+    });
+
+    delete product.usuario;
 
     return response.json(product);
   }

@@ -19,5 +19,6 @@ productsRouter.post(
 
 productsRouter.get('/', productsController.index);
 productsRouter.get('/:id', productsController.show);
+productsRouter.put('/', ensureAuhenticated, productsController.update);
 
 export default productsRouter;
