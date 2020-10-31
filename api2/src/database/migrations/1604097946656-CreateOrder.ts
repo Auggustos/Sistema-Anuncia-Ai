@@ -21,7 +21,7 @@ export default class CreateOrder1604097946656 implements MigrationInterface {
           {
             name: 'status',
             type: 'varchar',
-            isNullable: false,
+            isNullable: true,
           },
         ],
       })
