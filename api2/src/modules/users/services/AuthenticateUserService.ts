@@ -1,25 +1,29 @@
-import { getRepository } from 'typeorm';
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import User from '../models/User';
-import authConfig from '../config/auth';
+import User from '@modules/users/infra/typeorm/entities/User';
+import authConfig from '@config/auth';
+import AppError from '@shared/errors/AppError';
+import { injectable, inject } from 'tsyringe';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-import AppError from '../errors/AppError';
-
-interface Request {
+interface IRequest {
   usuario: string;
   senha: string;
 }
 
-interface Response {
+interface IResponse {
   user: User;
   token: string;
 }
+@injectable()
 class AuthenticateUserService {
-  public async execute({ usuario, senha }: Request): Promise<Response> {
-    const usersRepository = getRepository(User);
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository
+  ) {}
 
-    const user = await usersRepository.findOne({ where: { usuario } });
+  public async execute({ usuario, senha }: IRequest): Promise<IResponse> {
+    const user = await this.usersRepository.findByUser(usuario);
 
     if (!user) {
       throw new AppError('Combinação de usuário / senha inválido.', 401);

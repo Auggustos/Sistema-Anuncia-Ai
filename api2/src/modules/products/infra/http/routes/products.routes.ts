@@ -1,14 +1,12 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
-
+import fs from 'fs';
 import multer from 'multer';
 import sharp from 'sharp';
-import uploadConfig from '../config/upload';
-import ListProductsService from '../services/ListProductsService';
-import CreateProductService from '../services/CreateProductService';
-import ensureAuhenticated from '../middlewares/ensureAuthenticated';
-
-const fs = require('fs');
+import uploadConfig from '@config/upload';
+import ListProductsService from '@modules/products/services/ListProductsService';
+import CreateProductService from '@modules/products/services/CreateProductService';
+import ensureAuhenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import { container } from 'tsyringe';
 
 const productsRouter = Router();
 const upload = multer(uploadConfig);
@@ -20,7 +18,7 @@ productsRouter.post(
     const { id, perfil } = request.user;
     const { descricao, preco, id_usuario, quantidade, nome } = request.body;
 
-    const createProduct = new CreateProductService();
+    const createProduct = container.resolve(CreateProductService);
 
     const product = await createProduct.execute({
       id,
@@ -53,7 +51,7 @@ productsRouter.post(
 );
 
 productsRouter.get('/', async (request, response) => {
-  const listProducts = new ListProductsService();
+  const listProducts = container.resolve(ListProductsService);
 
   const products = await listProducts.execute();
 
