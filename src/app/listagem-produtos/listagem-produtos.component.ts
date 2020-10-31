@@ -41,6 +41,9 @@ export class ListagemProdutosComponent implements OnInit {
           this.produtos.push(produto);
         }
       })
+    },
+    error =>{
+      this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
     });
   }
   adicionaAoCarrinho(idProduto:string){
