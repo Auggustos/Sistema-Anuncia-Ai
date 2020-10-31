@@ -60,3 +60,19 @@ body {
 }
 
 .imagem-produto {}
+
+.button-voltar {
+    margin-left: 131px;
+    background-color: #b24c4c;
+    color: white;
+}
+
+.buttons {
+    display: inline-block;
+}
+
+.button-cadastrar {
+    margin-left: 230%;
+    background-color: #4CB258;
+    color: white;
+}

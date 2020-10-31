@@ -32,6 +32,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
 import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
+import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 
 
 
@@ -48,7 +49,8 @@ import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.
     PedidosComponent,
     CarrinhoComponent,
     ErrorComponent,
-    AppComponent
+    AppComponent,
+    GerirProdutosComponent
   ],
   imports: [
     BrowserAnimationsModule,
