@@ -45,7 +45,8 @@ export class CadastraUsuarioComponent implements OnInit {
       });
     },
     error => {
-      this.dialogService.showError(`${error.error.error}`, "Acesso Negado!")
+      console.log(error);
+      this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
     });
   }
   loadObject(){
