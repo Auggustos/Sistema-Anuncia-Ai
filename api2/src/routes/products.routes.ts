@@ -15,25 +15,19 @@ productsRouter.post(
   upload.single('imagem'),
   async (request, response) => {
     try {
+      console.log(request.file);
       if (request.user.perfil === 0) {
         throw new Error('Você não é um vendedor');
       }
 
-      const {
-        descricao,
-        preco,
-        imagem,
-        id_usuario,
-        quantidade,
-        nome,
-      } = request.body;
+      const { descricao, preco, id_usuario, quantidade, nome } = request.body;
 
       const createProduct = new CreateProductService();
 
       const product = await createProduct.execute({
         descricao,
         preco,
-        imagem,
+        imagemFileName: request.file.filename,
         id_usuario,
         quantidade,
         nome,
