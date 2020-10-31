@@ -38,11 +38,11 @@ class CreateUserService {
     });
 
     if (checkUserExists) {
-      throw new Error('Usuário já está sendo utilizado');
+      throw new AppError('Usuário já está sendo utilizado');
     }
 
     if (checkEmailExists) {
-      throw new Error('Email já está sendo utilizado');
+      throw new AppError('Email já está sendo utilizado');
     }
 
     const hashedPassword = await hash(senha, 8);
