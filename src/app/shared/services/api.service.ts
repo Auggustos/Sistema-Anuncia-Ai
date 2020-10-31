@@ -25,9 +25,12 @@ export class ApiService {
   }
 
   atualizaUsuario(body,token):Observable<any>{
-    return this.http.put(`${this.url}/users`,body,token)
+    return this.http.put(`${this.url}/profile`,body,token)
     .pipe();
   }
 
-  
+  getUsuario(id):Observable<any>{
+    console.log(id);
+    return this.http.get<Usuario>(`${this.url}/profile`,id);
+  }  
 }
