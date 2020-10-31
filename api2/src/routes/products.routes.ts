@@ -2,10 +2,13 @@ import { Router } from 'express';
 import { getRepository } from 'typeorm';
 
 import multer from 'multer';
+import sharp from 'sharp';
 import uploadConfig from '../config/upload';
 import ListProductsService from '../services/ListProductsService';
 import CreateProductService from '../services/CreateProductService';
 import ensureAuhenticated from '../middlewares/ensureAuthenticated';
+
+const fs = require('fs');
 
 const productsRouter = Router();
 const upload = multer(uploadConfig);
@@ -16,7 +19,6 @@ productsRouter.post(
   async (request, response) => {
     try {
       console.log(request.file);
-
       const { id, perfil } = request.user;
       const { descricao, preco, id_usuario, quantidade, nome } = request.body;
 
@@ -32,6 +34,20 @@ productsRouter.post(
         quantidade,
         nome,
       });
+
+      sharp(request.file.path)
+        .resize(300, 300, {
+          kernel: sharp.kernel.nearest,
+          fit: 'contain',
+          position: 'right top',
+        })
+        .toBuffer()
+        .then(info => {
+          fs.writeFileSync(request.file.path, info);
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
       return response.json(product);
     } catch (err) {
