@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
-
-import CreateUserService from '../services/CreateUserService';
+import { container } from 'tsyringe';
+import CreateUserService from '@modules/users/services/CreateUserService';
 
 const usersRouter = Router();
 
@@ -18,7 +17,7 @@ usersRouter.post('/', async (request, response) => {
     pagamento_cartao,
   } = request.body;
 
-  const createUser = new CreateUserService();
+  const createUser = container.resolve(CreateUserService);
 
   const user = await createUser.execute({
     nome,

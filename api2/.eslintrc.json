@@ -25,7 +25,19 @@
       }],
       "prettier/prettier" : ["error", { "endOfLine": "auto"}],
       "class-methods-use-this": "off",
-      "import/extensions": [
+      "no-useless-constructor": "off",
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": "interface",
+          "format": ["PascalCase"],
+          "custom": {
+            "regex": "^I[A-Z]",
+            "match": true
+          }
+        }
+      ],
+            "import/extensions": [
         "error",
         "ignorePackages",
         {
