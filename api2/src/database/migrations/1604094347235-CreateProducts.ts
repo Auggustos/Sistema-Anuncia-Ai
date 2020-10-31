@@ -37,13 +37,11 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             name: 'quantidade',
             type: 'integer',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'nome',
             type: 'varchar',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'criado_em',

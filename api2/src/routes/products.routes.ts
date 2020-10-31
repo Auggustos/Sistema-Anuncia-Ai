@@ -1,13 +1,52 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 
-import CreateUserService from '../services/CreateUserService';
+import multer from 'multer';
+import uploadConfig from '../config/upload';
+import ListProductsService from '../services/ListProductsService';
+import CreateProductService from '../services/CreateProductService';
+import ensureAuhenticated from '../middlewares/ensureAuthenticated';
 
 const productsRouter = Router();
+const upload = multer(uploadConfig);
+productsRouter.post(
+  '/',
+  ensureAuhenticated,
+  upload.single('imagem'),
+  async (request, response) => {
+    try {
+      console.log(request.file);
 
-productsRouter.post('/', async (request, response) => {
+      const { id, perfil } = request.user;
+      const { descricao, preco, id_usuario, quantidade, nome } = request.body;
+
+      const createProduct = new CreateProductService();
+
+      const product = await createProduct.execute({
+        id,
+        perfil,
+        descricao,
+        preco,
+        imagemFileName: request.file.filename,
+        id_usuario,
+        quantidade,
+        nome,
+      });
+
+      return response.json(product);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+);
+
+productsRouter.get('/', async (request, response) => {
   try {
-    return response.json({ ok: true });
+    const listProducts = new ListProductsService();
+
+    const products = await listProducts.execute();
+
+    return response.json(products);
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
