@@ -13,6 +13,14 @@ export interface Transaction {
 }
 const ELEMENT_DATA: Transaction[] = [];
 
+export interface Carrinho {
+  produtoId: string,
+  idCliente: string,
+  preco: number,
+  quantidade: number,
+  nome: string,
+}
+
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.component.html',
@@ -27,12 +35,13 @@ export class CarrinhoComponent implements OnInit {
   getTotalCost() {
     let valorNota = 0;
     ELEMENT_DATA.forEach(
-      produto =>{
+      produto => {
         valorNota += produto.cost * produto.quantidade;
       }
     );
     return valorNota;
   }
+  carrinho: Carrinho[] = []
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,8 +51,8 @@ export class CarrinhoComponent implements OnInit {
       let carrinhoAux = JSON.parse(this.authService.getCarrinho());
       if (carrinhoAux.length > 0) {
         carrinhoAux.forEach(produto => {
-          var item: { id: string, item: string, cost: number, quantidade: number } = { id: '', item: '', cost: 0,quantidade:0 };
-          item.item = produto.produtoId;
+          var item: { id: string, item: string, cost: number, quantidade: number } = { id: '', item: '', cost: 0, quantidade: 0 };
+          item.item = produto.nome;
           item.cost = produto.preco;
           item.id = produto.produtoId;
           item.quantidade = produto.quantidade;
@@ -54,15 +63,7 @@ export class CarrinhoComponent implements OnInit {
       } else {
 
       }
-
-
     }
-
-    //JSON.parse(this.authService.getCarrinho()).forEach(
-    // produtos =>{
-
-    // }
-    //)
   }
   goBack() {
     window.history.back();
@@ -76,22 +77,30 @@ export class CarrinhoComponent implements OnInit {
       }
     )
     this.dataSource.data = ELEMENT_DATA;
-
+    this.authService.limpaCarrinho();
+    ELEMENT_DATA.forEach(
+      produto => {
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+      }
+    )
+    var textoCarrinho = JSON.stringify(this.carrinho);
+    this.authService.setCarrinho(textoCarrinho);
+    location.reload();
   }
 
   finalizaCompra() {
     console.log(ELEMENT_DATA.length);
   }
 
-  limpaCarrinho(){
+  limpaCarrinho() {
     this.authService.limpaCarrinho();
     location.reload();
   }
-  atualizaPreco(){
+  atualizaPreco() {
     this.dataSource.data = ELEMENT_DATA;
   }
 
-  adiciona(idItem){
+  adiciona(idItem) {
     ELEMENT_DATA.forEach(
       produto => {
         if (produto.id == idItem) {
@@ -100,15 +109,37 @@ export class CarrinhoComponent implements OnInit {
       }
     )
     this.dataSource.data = ELEMENT_DATA;
+    this.authService.limpaCarrinho();
+    ELEMENT_DATA.forEach(
+      produto => {
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+      }
+    )
+    var textoCarrinho = JSON.stringify(this.carrinho);
+    this.authService.setCarrinho(textoCarrinho);
+    location.reload();
   }
-  remove(idItem){
+  remove(idItem) {
     ELEMENT_DATA.forEach(
       produto => {
         if (produto.id == idItem) {
-          produto.quantidade--;
+          if (produto.quantidade > 1) {
+            produto.quantidade--;
+          } else {
+            ELEMENT_DATA.splice(ELEMENT_DATA.indexOf(produto), 1)
+          }
         }
       }
     )
     this.dataSource.data = ELEMENT_DATA;
+    this.authService.limpaCarrinho();
+    ELEMENT_DATA.forEach(
+      produto => {
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+      }
+    )
+    var textoCarrinho = JSON.stringify(this.carrinho);
+    this.authService.setCarrinho(textoCarrinho);
+    location.reload();
   }
 }
