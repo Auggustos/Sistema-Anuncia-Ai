@@ -49,7 +49,7 @@ export class GerirProdutosComponent implements OnInit {
     this.router.navigateByUrl(url.replace('ID',idProduto)).then(success => location.reload())
   }
   excluiAnuncio(idProduto: string) {
-    console.log(idProduto);
+
     this.dialogService.showConfirm("Excluir?", "Voce realmente deseja excluir este produto?").then(
       result => {
         if(result.value){

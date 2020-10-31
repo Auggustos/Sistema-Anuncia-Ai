@@ -38,14 +38,14 @@ export class CadastraUsuarioComponent implements OnInit {
   }
   cadastraUsuario() {
     const body = this.loadObject();
-    console.log(body);
+
     this.apiService.postUsuario(body).subscribe(success =>{
       this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       });
     },
     error => {
-      console.log(error);
+
       this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
     });
   }

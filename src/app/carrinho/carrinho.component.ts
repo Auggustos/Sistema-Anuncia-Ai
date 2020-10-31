@@ -25,7 +25,13 @@ export class CarrinhoComponent implements OnInit {
 
   /** Gets the total cost of all transactions. */
   getTotalCost() {
-    return ELEMENT_DATA.map(t => t.cost).reduce((acc, value) => acc + value, 0);
+    let valorNota = 0;
+    ELEMENT_DATA.forEach(
+      produto =>{
+        valorNota += produto.cost * produto.quantidade;
+      }
+    );
+    return valorNota;
   }
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
 
@@ -80,5 +86,29 @@ export class CarrinhoComponent implements OnInit {
   limpaCarrinho(){
     this.authService.limpaCarrinho();
     location.reload();
+  }
+  atualizaPreco(){
+    this.dataSource.data = ELEMENT_DATA;
+  }
+
+  adiciona(idItem){
+    ELEMENT_DATA.forEach(
+      produto => {
+        if (produto.id == idItem) {
+          produto.quantidade++;
+        }
+      }
+    )
+    this.dataSource.data = ELEMENT_DATA;
+  }
+  remove(idItem){
+    ELEMENT_DATA.forEach(
+      produto => {
+        if (produto.id == idItem) {
+          produto.quantidade--;
+        }
+      }
+    )
+    this.dataSource.data = ELEMENT_DATA;
   }
 }
