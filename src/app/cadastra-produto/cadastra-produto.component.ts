@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Produto } from '../classes/produto.class'
+import { Produto } from '../classes/produto.class';
+import { Router } from "@angular/router";
+
+import { DialogService } from '../shared/services/dialog/dialog.service'
+import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-cadastra-produto',
   templateUrl: './cadastra-produto.component.html',
@@ -8,7 +13,7 @@ import { Produto } from '../classes/produto.class'
 })
 export class CadastraProdutoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogService: DialogService, private router: Router, private apiSevice: ApiService, private authService: AuthService) { }
 
   uploadData = new FormData();
 
@@ -21,12 +26,12 @@ export class CadastraProdutoComponent implements OnInit {
   produto: Produto;
 
   productForm = new FormGroup({
-    nome: new FormControl(''),
-    descricao: new FormControl(''),
-    preco: new FormControl(''),
-    imagem: new FormControl(''),
-    id_usuario: new FormControl(''),
-    quantidade: new FormControl(''),
+    nome: new FormControl('', Validators.required),
+    descricao: new FormControl('',Validators.required),
+    preco: new FormControl('', Validators.required),
+    imagem: new FormControl('',Validators.required),
+    id_usuario: new FormControl(this.authService.getUserId(),Validators.required),
+    quantidade: new FormControl('',Validators.required),
   });
 
   ngOnInit(): void {
@@ -38,30 +43,47 @@ export class CadastraProdutoComponent implements OnInit {
   cadastraProduto() {
     this.productForm.controls['imagem'].setValue(this.uploadData);
     console.log(this.productForm.value);
+    this.dialogService.showSuccess(`Produto: ${this.productForm.value.nome} cadastrado com sucesso!`, 'Produto cadastrado').then(result => {
+      this.router.navigate(['']);
+    })
   }
 
   readURL(event): void {
     this.selectedFile = event.target.files[0]
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-
       this.uploadData = new FormData();
 
-      this.uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+      this.uploadData.append('imagem', this.selectedFile, this.selectedFile.name);
 
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
 
       reader.readAsDataURL(file);
     }
+
+    this.productForm.controls['imagem'].setValue(this.selectedFile);
   }
 
   onUpload() {
-    // upload code goes here
-    // const uploadData = new FormData();
-    //uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    //this.http.post('my-backend.com/file-upload', uploadData)
-    // .subscribe(...);
+    const uploadData = new FormData();
+    uploadData.append('imagem', this.selectedFile);
+    uploadData.append('nome', this.productForm.value.nome);
+    uploadData.append('descricao', this.productForm.value.descricao);
+    uploadData.append('preco', this.productForm.value.preco);
+    uploadData.append('quantidade', this.productForm.value.quantidade);
+    uploadData.append('id_usuario', this.productForm.value.id_usuario);
+    this.apiSevice.postProdutos(uploadData)
+      .subscribe(
+        success => {
+          this.dialogService.showSuccess(`${this.productForm.value.nome} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
+            this.router.navigateByUrl('').then(success => location.reload())
+          });
+        },
+        error => {
+          this.dialogService.showError('Verifique os dados!', "Erro no Cadastro!");
+        }
+      );
   }
 
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-tela-login',
@@ -7,39 +10,35 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./tela-login.component.css']
 })
 export class TelaLoginComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dialogService: DialogService) { }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  loginForm = new FormGroup({
+    usuario: new FormControl('', Validators.required),
+    senha: new FormControl('', Validators.required),
+  });
   usuarios: { user: String, senha: String }[] = [];
-  usuario = '';
-  senha = '';
 
   hide = true;
 
   ngOnInit(): void {
-    this.usuarios = [
-      { user: 'rafael', senha: 'rafa' },
-      { user: 'joao', senha: 'juao' },
-      { user: 'thiago', senha: 'thithi' },
-    ];
 
   }
 
   verificaUser() {
-    let flag = 0;
-    this.usuarios.forEach(user => {
-      if (this.usuario == user.user && this.senha == user.senha) {
-        flag = 1;
-      }
-    })
-    if (flag == 1) {
-      console.log("acesso permitido")
-    } else {
-      console.log("acesso negado!")
-    }
-  }
 
+    this.authService.login(this.loginForm.value.usuario, this.loginForm.value.senha).subscribe(
+      success => {
+        this.dialogService.showSuccess(`Bem vindo ${this.authService.getUser()}`, "Login Realizado!").then(result => {
+          this.router.navigateByUrl('').then(success => location.reload())
+        })
+      },
+      error => {
+        this.dialogService.showError('Usuário ou senha inválidos', "Acesso Negado!")
+      }
+    );
+
+  }
 }

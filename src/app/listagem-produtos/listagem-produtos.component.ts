@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from "@angular/router";
 import { Produto } from '../classes/produto.class';
-
+import { ApiService } from '../shared/services/api.service'
+import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
 @Component({
   selector: 'app-listagem-produtos',
   templateUrl: './listagem-produtos.component.html',
@@ -22,7 +25,7 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService,private router: Router,) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -30,20 +33,22 @@ export class ListagemProdutosComponent implements OnInit {
   itensSidebar: string[] = ['Meus dados', 'Minhas compras'];
 
   ngOnInit(): void {
-    this.produtos = [
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-      { id: 1, nome: "bola", descricao: "bola de mama", preco: 150, imagem: "xesquedele", id_usuario: 1, quantidade: 2 },
-      { id: 2, nome: "xupeta", descricao: "xupetinha de mel", preco: 25, imagem: "hmmmxupetinha", id_usuario: 1, quantidade: 5 },
-      { id: 3, nome: "faca", descricao: "faca do michael mayers", preco: 500, imagem: "facadona", id_usuario: 2, quantidade: 5 },
-    ]
+
+    this.apiService.getProdutos().subscribe(response => {
+      const userId = this.authService.getUserId();
+      response.forEach(produto => {
+        if (produto.id_usuario != userId) {
+          this.produtos.push(produto);
+        }
+      })
+    });
+  }
+  adicionaAoCarrinho(idProduto:string){
+    if(!this.authService.isLoggedIn()){
+      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!","Autentique-se!").then(result =>{
+        this.router.navigateByUrl('login').then(success => location.reload())
+      })
+    }
   }
 
 

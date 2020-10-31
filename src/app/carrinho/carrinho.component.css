@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+.mat-header-cell {
+    width: 25%;
+}
+
+.button-voltar {
+    width: 100px;
+    background-color: #b24c4c;
+    color: white;
+}
+
+.button-cadastrar {
+    background-color: #4CB258;
+    color: white;
+    margin-left: 10%;
+}
+
+.buttons {
+    display: inline-block;
+}

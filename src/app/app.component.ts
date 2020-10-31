@@ -1,5 +1,9 @@
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
+import { exit } from 'process';
+import { AuthService } from './shared/services/auth.service';
+import { DialogService } from './shared/services/dialog/dialog.service';
 
 export interface rotas {
   nome: string,
@@ -10,17 +14,61 @@ export interface rotas {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'Sistema-Horti-Fruti';
-  constructor(private router: Router) { }
+
+  badge: number;
+
+  constructor(private router: Router, private authService: AuthService, private dialogService: DialogService) { 
+  }
+
+  usuario = '';
+  perfil = 3;
+
+  ngOnInit() {
+   
+    if (!this.authService.isLoggedIn()) {
+      this.usuario = '';
+      this.perfil = 3;
+    } else {
+      if (this.authService.getUser().length > 1) {
+        this.usuario = this.authService.getUser();
+        this.perfil = parseInt(this.authService.getPerfil());
+      }
+    }
+  }
+
+  desloga() {
+    location.reload();
+    this.authService.logout();
+    this.usuario = this.authService.getUser();
+    this.perfil = parseInt(this.authService.getPerfil());
+    if (!this.authService.isLoggedIn()) {
+      this.usuario = '';
+      this.perfil = 3;
+    }
+    this.dialogService.showSuccess("Logout realizado com sucesso!","Logout");
+  }
+
+  onBadge(event) {
+    console.log("cheguei")
+    this.badge = event.valor;
+    console.log(event)
+  }
+
   itensSidebar: rotas[] = [
     { nome: 'Meus dados', rota: 'usuario/atualiza' },
-    { nome: 'Gerenciar Vendas', rota: '' },
+    { nome: 'Gerenciar Vendas', rota: 'gerir' },
     { nome: 'Cadastrar Produtos', rota: 'produto/cadastra' },
-    { nome: 'Pedidos', rota: '' },
+    { nome: 'Pedidos', rota: 'pedidos' },
     { nome: 'Ofertas', rota: '' }];
   onRowClicked(item: rotas) {
     this.router.navigate([item.rota]);
+  }
+
+  toCarrinho() {
+    this.router.navigate(['/carrinho']);
   }
 }
 
