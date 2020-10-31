@@ -16,15 +16,15 @@ productsRouter.post(
   async (request, response) => {
     try {
       console.log(request.file);
-      if (request.user.perfil === 0) {
-        throw new Error('Você não é um vendedor');
-      }
 
+      const { id, perfil } = request.user;
       const { descricao, preco, id_usuario, quantidade, nome } = request.body;
 
       const createProduct = new CreateProductService();
 
       const product = await createProduct.execute({
+        id,
+        perfil,
         descricao,
         preco,
         imagemFileName: request.file.filename,
