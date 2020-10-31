@@ -27,7 +27,13 @@ export class AuthService {
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     localStorage.setItem('usuario', authResult.user.nome);
-    localStorage.setItem('usuario_id',authResult.user.id)
+    localStorage.setItem('usuario_id', authResult.user.id);
+    localStorage.setItem('perfil', authResult.user.perfil);
+    localStorage.setItem('userCelular', authResult.user.celular);
+    localStorage.setItem('userEmail', authResult.user.email);
+    localStorage.setItem('userEndereco', authResult.user.endereco);
+    localStorage.setItem('userPagamentoCartao', authResult.user.pagamento_cartao);
+
   }
 
   private decode(token: string) {
@@ -88,15 +94,46 @@ export class AuthService {
     return !this.isLoggedIn();
   }
 
-  getUser(){
+  getUser() {
     const retorno = localStorage.getItem('usuario');
     return retorno;
   }
 
-  getUserId(){
+  getUserId() {
     const retorno = localStorage.getItem('usuario_id');
     return retorno;
   }
+  getPerfil() {
+    const retorno = localStorage.getItem('perfil');
+    return retorno;
+  }
+
+  getUserDados() {
+    const retorno = localStorage.getItem('userDados');
+    return retorno;
+  }
+
+  getUserCelular() {
+    const retorno = localStorage.getItem('userCelular');
+    return retorno;
+  }
+  getUserEmail() {
+    const retorno = localStorage.getItem('userEmail');
+    return retorno;
+  }
+  getUserEndereco() {
+    const retorno = localStorage.getItem('userEndereco');
+    return retorno;
+  }
+  getUserPagamentoCartao() {
+    const retorno = localStorage.getItem('userPagamentoCartao');
+    return retorno;
+  }
+
+
+
+
+
 }
 
 @Injectable()

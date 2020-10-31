@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import{ DialogService } from '../shared/services/dialog/dialog.service'
 import { Router } from "@angular/router";
+import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-atualiza-usuario',
@@ -10,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class AtualizaUsuarioComponent implements OnInit {
 
-  constructor(private dialogService: DialogService,private router: Router) { }
+  constructor(private dialogService: DialogService,private router: Router,private apiService: ApiService, private authService: AuthService) { }
 
   hide = true;
 
@@ -19,16 +21,18 @@ export class AtualizaUsuarioComponent implements OnInit {
   aceitaCartao = ['Sim','Não'];
 
   userForm = new FormGroup({
-    nome: new FormControl(''),
+    nome: new FormControl(this.authService.getUser()),
     sobrenome: new FormControl(''),
-    endereco: new FormControl(''),
-    celular: new FormControl(''),
-    email: new FormControl(''),
-    perfil: new FormControl(''),
-    pagamento_cartao: new FormControl('')
+    endereco: new FormControl(this.authService.getUserEndereco()),
+    celular: new FormControl(this.authService.getUserCelular()),
+    email: new FormControl(this.authService.getUserEmail()),
+    perfil: new FormControl(this.authService.getPerfil()),
+    pagamento_cartao: new FormControl(this.authService.getUserPagamentoCartao())
   });
 
+
   ngOnInit(): void {
+
   }
   goBack() {
     window.history.back();

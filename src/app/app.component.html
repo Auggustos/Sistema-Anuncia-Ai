@@ -7,8 +7,10 @@
         <span class="example-spacer"></span>
 
         <span>{{usuario}}</span>
-
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
+        <button mat-icon-button *ngIf="perfil == 3" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Login" [routerLinkActive]="'active'" [routerLink]="['login']">
+            <mat-icon>login</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="perfil == 0 || perfil == 1" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
             <mat-icon>power_settings_new</mat-icon>
         </button>
         <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="carrinho" (click)="toCarrinho()">
@@ -17,11 +19,24 @@
     </mat-toolbar>
     <mat-drawer-container class="container-sidebar" autosize>
         <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+
             <mat-selection-list #shoes [multiple]="false">
-                <mat-list-option *ngFor="let item of itensSidebar" [value]="item.rota" (click)="onRowClicked(item)">
+                <mat-list-option *ngIf="perfil == 0 || perfil == 1" [routerLinkActive]="'active'" [routerLink]="['usuario/atualiza']">Meus dados</mat-list-option>
+                <mat-list-option *ngIf="perfil == 1" [routerLinkActive]="'active'" [routerLink]="['gerir']">Gerenciar Vendas
+                </mat-list-option>
+                <mat-list-option *ngIf="perfil == 1" [routerLinkActive]="'active'" [routerLink]="['produto/cadastra']">
+                    Cadastrar Produtos</mat-list-option>
+                <mat-list-option *ngIf="perfil == 0 || perfil == 1" [routerLinkActive]="'active'" [routerLink]="['pedidos']">Pedidos
+                </mat-list-option>
+                <mat-list-option [routerLinkActive]="'active'" [routerLink]="['']">Ofertas</mat-list-option>
+            </mat-selection-list>
+            <!-- <mat-selection-list #shoes [multiple]="false">
+                <mat-list-option *ngIf="((item.nome=='Meus Dados') && (perfil==0))" *ngFor="let item of itensSidebar" [value]="item.rota" (click)="onRowClicked(item)">
                     {{item.nome}}
                 </mat-list-option>
-            </mat-selection-list>
+            </mat-selection-list> -->
+
+
         </mat-drawer>
         <div class="content">
             <router-outlet #carrinho></router-outlet>

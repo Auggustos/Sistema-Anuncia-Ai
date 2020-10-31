@@ -26,12 +26,12 @@ export class CadastraProdutoComponent implements OnInit {
   produto: Produto;
 
   productForm = new FormGroup({
-    nome: new FormControl(''),
-    descricao: new FormControl(''),
-    preco: new FormControl(''),
-    imagem: new FormControl(''),
-    id_usuario: new FormControl(this.authService.getUserId()),
-    quantidade: new FormControl(''),
+    nome: new FormControl('', Validators.required),
+    descricao: new FormControl('',Validators.required),
+    preco: new FormControl('', Validators.required),
+    imagem: new FormControl('',Validators.required),
+    id_usuario: new FormControl(this.authService.getUserId(),Validators.required),
+    quantidade: new FormControl('',Validators.required),
   });
 
   ngOnInit(): void {
@@ -61,6 +61,8 @@ export class CadastraProdutoComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+
+    this.productForm.controls['imagem'].setValue(this.selectedFile);
   }
 
   onUpload() {
@@ -72,7 +74,16 @@ export class CadastraProdutoComponent implements OnInit {
     uploadData.append('quantidade', this.productForm.value.quantidade);
     uploadData.append('id_usuario', this.productForm.value.id_usuario);
     this.apiSevice.postProdutos(uploadData)
-      .subscribe();
+      .subscribe(
+        success => {
+          this.dialogService.showSuccess(`${this.productForm.value.nome} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
+            this.router.navigateByUrl('').then(success => location.reload())
+          });
+        },
+        error => {
+          this.dialogService.showError('Verifique os dados!', "Erro no Cadastro!");
+        }
+      );
   }
 
 }

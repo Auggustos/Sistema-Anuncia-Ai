@@ -23,7 +23,7 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
-  constructor(private apiService: ApiService,private authService: AuthService) { }
+  constructor(private apiService: ApiService, private authService: AuthService) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -32,10 +32,13 @@ export class ListagemProdutosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.authService.getUser());
-
     this.apiService.getProdutos().subscribe(response => {
-      this.produtos = response;
+      const userId = this.authService.getUserId();
+      response.forEach(produto => {
+        if (produto.id_usuario != userId) {
+          this.produtos.push(produto);
+        }
+      })
     });
   }
 

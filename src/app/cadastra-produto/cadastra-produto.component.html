@@ -41,7 +41,7 @@
                     </div>
                     <br>
                     <div class="buttons">
-                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="onUpload()">Cadastrar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="onUpload()" [disabled]="!this.productForm.valid">Cadastrar</button></div>
                         <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
                     </div>
                 </form>
