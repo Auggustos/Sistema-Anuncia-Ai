@@ -34,9 +34,9 @@ export class ListagemProdutosComponent implements OnInit {
 
     console.log(this.authService.getUser());
 
-    //this.apiService.getProdutos().subscribe(response => {
-    //  this.produtos = response;
-    //});
+    this.apiService.getProdutos().subscribe(response => {
+      this.produtos = response;
+    });
   }
 
 
