@@ -33,6 +33,8 @@ export class AuthService {
     localStorage.setItem('userEmail', authResult.user.email);
     localStorage.setItem('userEndereco', authResult.user.endereco);
     localStorage.setItem('userPagamentoCartao', authResult.user.pagamento_cartao);
+    localStorage.setItem('userSobrenome', authResult.user.sobrenome);
+
 
   }
 
@@ -127,6 +129,10 @@ export class AuthService {
   }
   getUserPagamentoCartao() {
     const retorno = localStorage.getItem('userPagamentoCartao');
+    return retorno;
+  }
+  getUserSobrenome() {
+    const retorno = localStorage.getItem('userSobrenome');
     return retorno;
   }
 

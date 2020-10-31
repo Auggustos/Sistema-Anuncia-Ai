@@ -22,12 +22,12 @@ export class AtualizaUsuarioComponent implements OnInit {
 
   userForm = new FormGroup({
     nome: new FormControl(this.authService.getUser()),
-    sobrenome: new FormControl(''),
+    sobrenome: new FormControl(this.authService.getUserSobrenome()),
     endereco: new FormControl(this.authService.getUserEndereco()),
     celular: new FormControl(this.authService.getUserCelular()),
     email: new FormControl(this.authService.getUserEmail()),
-    perfil: new FormControl(this.authService.getPerfil()),
-    pagamento_cartao: new FormControl(this.authService.getUserPagamentoCartao())
+    perfil: new FormControl('',Validators.required),
+    pagamento_cartao: new FormControl()
   });
 
 

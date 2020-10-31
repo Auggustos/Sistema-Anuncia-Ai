@@ -17,7 +17,7 @@ export class ApiService {
   }
 
   postUsuario(body):Observable<any>{
-    return this.http.post(`${this.url}/register`,body)
+    return this.http.post(`${this.url}/users`,body)
     .pipe();
   }
   postProdutos(body): Observable<any> {

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 @Component({
-  selector: 'app-listagem-produtos',
-  templateUrl: './listagem-produtos.component.html',
-  styleUrls: ['./listagem-produtos.component.css']
+  selector: 'app-gerir-produtos',
+  templateUrl: './gerir-produtos.component.html',
+  styleUrls: ['./gerir-produtos.component.css']
 })
-export class ListagemProdutosComponent implements OnInit {
+export class GerirProdutosComponent implements OnInit {
   // MatPaginator Inputs
   length = 100;
   pageSize = 10;
@@ -25,7 +25,7 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
-  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService,private router: Router,) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -37,19 +37,27 @@ export class ListagemProdutosComponent implements OnInit {
     this.apiService.getProdutos().subscribe(response => {
       const userId = this.authService.getUserId();
       response.forEach(produto => {
-        if (produto.id_usuario != userId) {
+        if (produto.id_usuario == userId) {
           this.produtos.push(produto);
         }
       })
     });
   }
-  adicionaAoCarrinho(idProduto:string){
-    if(!this.authService.isLoggedIn()){
-      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!","Autentique-se!").then(result =>{
-        this.router.navigateByUrl('login').then(success => location.reload())
-      })
-    }
+
+  editaAnuncio(idProduto: string) {
+    let url = 'produto/ID/atualiza';
+    this.router.navigateByUrl(url.replace('ID',idProduto)).then(success => location.reload())
   }
-
-
+  excluiAnuncio(idProduto: string) {
+    console.log(idProduto);
+    this.dialogService.showConfirm("Excluir?", "Voce realmente deseja excluir este produto?").then(
+      result => {
+        if(result.value){
+          console.log("apaga")
+        }else{
+          console.log("não apaga");
+        } 
+      }
+    );
+  }
 }

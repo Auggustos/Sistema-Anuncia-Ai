@@ -3,11 +3,11 @@
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>Marketplace</span>
+        <span>Oferta Aí</span>
         <span class="example-spacer"></span>
 
         <span>{{usuario}}</span>
-        <button mat-icon-button *ngIf="perfil == 3" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Login" [routerLinkActive]="'active'" [routerLink]="['login']">
+        <button mat-icon-button *ngIf="perfil == 3" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Logar" [routerLinkActive]="'active'" [routerLink]="['login']">
             <mat-icon>login</mat-icon>
         </button>
         <button mat-icon-button *ngIf="perfil == 0 || perfil == 1" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
@@ -26,6 +26,8 @@
                 </mat-list-option>
                 <mat-list-option *ngIf="perfil == 1" [routerLinkActive]="'active'" [routerLink]="['produto/cadastra']">
                     Cadastrar Produtos</mat-list-option>
+                <mat-list-option *ngIf="perfil == 1" [routerLinkActive]="'active'" [routerLink]="['produto/gerir']">Gerenciar Produtos
+                </mat-list-option>
                 <mat-list-option *ngIf="perfil == 0 || perfil == 1" [routerLinkActive]="'active'" [routerLink]="['pedidos']">Pedidos
                 </mat-list-option>
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['']">Ofertas</mat-list-option>
