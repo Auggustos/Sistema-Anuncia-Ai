@@ -27,6 +27,7 @@ export class AuthService {
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     localStorage.setItem('usuario', authResult.user.nome);
+    localStorage.setItem('usuario_id',authResult.user.id)
   }
 
   private decode(token: string) {
@@ -89,6 +90,11 @@ export class AuthService {
 
   getUser(){
     const retorno = localStorage.getItem('usuario');
+    return retorno;
+  }
+
+  getUserId(){
+    const retorno = localStorage.getItem('usuario_id');
     return retorno;
   }
 }
