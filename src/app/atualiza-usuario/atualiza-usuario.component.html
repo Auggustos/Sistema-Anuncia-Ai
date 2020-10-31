@@ -55,7 +55,7 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 'Fornecedor'">
+                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 1">
                             <mat-label>Aceita Cartão?</mat-label>
                             <mat-select formControlName="pagamento_cartao">
                                 <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao">
