@@ -1,4 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from './shared/services/dialog/dialog.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +15,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -25,14 +25,15 @@ import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
 import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { AtualizaUsuarioComponent } from './atualiza-usuario/atualiza-usuario.component';
+import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
+import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
-import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
-import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
+import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
 
 
 
@@ -44,13 +45,14 @@ import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.componen
     CadastraUsuarioComponent,
     CadastraProdutoComponent,
     AtualizaUsuarioComponent,
+    GerirProdutosComponent,
     GerirVendasComponent,
     TelaLoginComponent,
     PedidosComponent,
     CarrinhoComponent,
     ErrorComponent,
     AppComponent,
-    GerirProdutosComponent
+    AtualizaProdutoComponent,    
   ],
   imports: [
     BrowserAnimationsModule,
