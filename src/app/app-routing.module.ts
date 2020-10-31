@@ -5,12 +5,17 @@ import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.co
 import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
 import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { ErrorComponent } from './error/error.component';
+import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { AuthGuard } from './shared/services/auth.service';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 const routes: Routes = [
+  {
+    path: '',
+    component: ListagemProdutosComponent
+  },
   {
     path: 'usuario/cadastra',
     component: CadastraUsuarioComponent, canActivate: [AuthGuard]
@@ -22,10 +27,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: TelaLoginComponent
-  },
-  {
-    path: '',
-    component: ListagemProdutosComponent
   },
   {
     path: 'produto/cadastra',
@@ -44,9 +45,13 @@ const routes: Routes = [
     component: CarrinhoComponent, canActivate: [AuthGuard]
   },
   {
+    path: 'produto/gerir',
+    component: GerirProdutosComponent, canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     component: ErrorComponent
-  }
+  },
 ];
 
 @NgModule({
