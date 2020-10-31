@@ -27,7 +27,7 @@ export class ApiService {
   atualizaUsuario(body,token):Observable<any>{
     return this.http.put(`${this.url}/users`,body,token)
     .pipe();
-
+  }
 
   
 }
