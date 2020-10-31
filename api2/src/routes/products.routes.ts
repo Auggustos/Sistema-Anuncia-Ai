@@ -37,8 +37,8 @@ productsRouter.post(
       sharp(request.file.path)
         .resize(300, 300, {
           kernel: sharp.kernel.nearest,
-          fit: 'contain',
-          position: 'right top',
+          fit: sharp.fit.fill,
+          position: 'center',
           background: '#fff',
         })
         .toBuffer()
