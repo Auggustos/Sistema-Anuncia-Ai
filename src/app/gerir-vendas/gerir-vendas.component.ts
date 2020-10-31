@@ -34,7 +34,7 @@ export class GerirVendasComponent implements OnInit {
   }
 
   visualizaPedido(id: number) {
-    console.log(id);
+
     this.dialog.open(ModalVisualizarPedidoComponent, {
       width: '70%',
       height: '601px',

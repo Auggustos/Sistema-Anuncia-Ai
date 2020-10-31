@@ -38,7 +38,7 @@ export class AtualizaUsuarioComponent implements OnInit {
     window.history.back();
   }
   atualizaUsuario() {
-    console.log(this.userForm.value);
+
     this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`,'Usuario Atualizado!').then(result => {
       this.router.navigate(['']);
     })
