@@ -40,14 +40,6 @@ export class CadastraProdutoComponent implements OnInit {
     window.history.back();
   }
 
-  cadastraProduto() {
-    this.productForm.controls['imagem'].setValue(this.uploadData);
-    console.log(this.productForm.value);
-    this.dialogService.showSuccess(`Produto: ${this.productForm.value.nome} cadastrado com sucesso!`, 'Produto cadastrado').then(result => {
-      this.router.navigate(['']);
-    })
-  }
-
   readURL(event): void {
     this.selectedFile = event.target.files[0]
     if (event.target.files && event.target.files[0]) {
@@ -81,7 +73,7 @@ export class CadastraProdutoComponent implements OnInit {
           });
         },
         error => {
-          this.dialogService.showError('Verifique os dados!', "Erro no Cadastro!");
+          this.dialogService.showError(`${error.error.error}`, "Erro no Cadastro!");
         }
       );
   }
