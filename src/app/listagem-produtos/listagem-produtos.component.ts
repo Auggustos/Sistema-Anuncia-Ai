@@ -24,7 +24,7 @@ export class ListagemProdutosComponent implements OnInit {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-  carrinho: { produtoId: string, idCliente: string, preco: number, quantidade: number }[] = [];
+  carrinho: { produtoId: string, idCliente: string, preco: number, quantidade: number, nome: string }[] = [];
 
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
   produtos: Produto[] = [];
@@ -47,7 +47,7 @@ export class ListagemProdutosComponent implements OnInit {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
       });
   }
-  adicionaAoCarrinho(idProduto: string, precoProduto: number) {
+  adicionaAoCarrinho(idProduto: string, precoProduto: number, nome: string) {
     if (this.carrinho.length > 0) {
       let flag = 0;
       for (let i = 0; i < this.carrinho.length; i++) {
@@ -60,12 +60,12 @@ export class ListagemProdutosComponent implements OnInit {
         }
       }
       if (flag == 0) {
-        this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1 });
+        this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1, nome: nome });
         var textoCarrinho = JSON.stringify(this.carrinho);
         this.authService.setCarrinho(textoCarrinho);
       }
     } else {
-      this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1 });
+      this.carrinho.push({ produtoId: idProduto, idCliente: this.authService.getUserId(), preco: precoProduto, quantidade: 1, nome: nome });
       var textoCarrinho = JSON.stringify(this.carrinho);
       this.authService.setCarrinho(textoCarrinho);
     }
