@@ -11,6 +11,15 @@
             <p>
                 <span style="font-weight: bold;">Descrição:</span> {{produto.descricao}}
             </p>
+            <p><span style="font-weight: bold;">Vendedor/Contato:</span> {{produto.usuario.nome}} - {{produto.usuario.celular}}
+            </p>
+            <div *ngIf="!produto.usuario.pagamento_cartao">
+                <span style="color: #b24c4c;">Não aceita cartão</span>
+            </div>
+            <div *ngIf="produto.usuario.pagamento_cartao">
+                <span style="color: #4CB258;">Aceita cartão</span>
+            </div>
+
         </mat-card-content>
         <mat-card-actions>
             <button mat-button class="button-adicionar-carrinho" (click)="adicionaAoCarrinho(produto.id, produto.preco, produto.nome)">Adicionar ao carrinho</button>

@@ -22,6 +22,10 @@ export class AtualizaUsuarioComponent implements OnInit {
 
   aceitaCartao = ['Sim', 'Não'];
 
+
+  perfil = 1;
+  cartao = '';
+
   userForm = new FormGroup({
     nome: new FormControl(''),
     sobrenome: new FormControl(''),
@@ -31,19 +35,21 @@ export class AtualizaUsuarioComponent implements OnInit {
     perfil: new FormControl('', Validators.required),
     senhaAntiga: new FormControl('', [Validators.required, Validators.minLength(6)]),
     senhaNova1: new FormControl('', Validators.minLength(6)),
-    pagamento_cartao: new FormControl(),
+    pagamento_cartao: new FormControl(''),
   });
 
   ngOnInit(): void {
     let userId = this.authService.getUserId();
     this.apiService.getUsuario(userId).subscribe(response => {
       //console.log(response)
-        this.userForm.controls['nome'].setValue(response.nome);
-        this.userForm.controls['sobrenome'].setValue(response.sobrenome);
-        this.userForm.controls['endereco'].setValue(response.endereco);
-        this.userForm.controls['celular'].setValue(response.celular);
-        this.userForm.controls['email'].setValue(response.email);
-        this.userForm.controls['perfil'].setValue(response.perfil);
+      this.userForm.controls['nome'].setValue(response.nome);
+      this.userForm.controls['sobrenome'].setValue(response.sobrenome);
+      this.userForm.controls['endereco'].setValue(response.endereco);
+      this.userForm.controls['celular'].setValue(response.celular);
+      this.userForm.controls['email'].setValue(response.email);
+      this.userForm.controls['perfil'].setValue(response.perfil);
+      this.userForm.controls['pagamento_cartao'].setValue('');
+      this.cartao = "";
     }, error => {
 
     });
@@ -78,5 +84,14 @@ export class AtualizaUsuarioComponent implements OnInit {
     }
   }
 
+
+  onChangePerfil(perfil) {
+    this.perfil = perfil;
+    console.log(this.perfil);
+  }
+  onChangeCartao(cartao) {
+    this.cartao = cartao;
+    console.log(this.cartao);
+  }
 
 }
