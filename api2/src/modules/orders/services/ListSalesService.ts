@@ -9,8 +9,8 @@ class ListOrdersService {
     private salesRepository: ISalesRepository
   ) {}
 
-  public async execute(): Promise<Order[] | undefined> {
-    const orders = await this.salesRepository.findAll();
+  public async execute(id: string): Promise<Order[] | undefined> {
+    const orders = await this.salesRepository.findAll(id);
     return orders;
   }
 }
