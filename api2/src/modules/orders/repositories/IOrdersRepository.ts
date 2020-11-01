@@ -3,7 +3,7 @@ import Order from '../infra/typeorm/entities/Order';
 // - findByUser
 // - createAndSave
 export default interface IOrdersRepository {
-  findAll(): Promise<Order[]>;
+  findAll(id: string): Promise<Order[]>;
   findById(id: string): Promise<Order | undefined>;
   create(data: ICreateOrderDTO): Promise<Order>;
   save(order: Order): Promise<Order>;
