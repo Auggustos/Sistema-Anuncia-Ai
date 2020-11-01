@@ -37,14 +37,12 @@ export class AtualizaProdutoComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.apiSevice.getProdutos().subscribe(response => {
-      response.forEach(produto => {
-        if (produto.id == this.idProduto) {
-          this.productForm.controls['descricao'].setValue(produto.descricao);
-          this.productForm.controls['preco'].setValue(produto.preco);
-          this.productForm.controls['quantidade'].setValue(produto.quantidade);
-        }
-      })
+    this.apiSevice.getProduto(this.idProduto, this.authService.token).subscribe(response => {
+      this.productForm.controls['descricao'].setValue(response.descricao);
+      this.productForm.controls['preco'].setValue(response.preco);
+      this.productForm.controls['quantidade'].setValue(response.quantidade);
+    },error => {
+      this.dialogService.showError('Erro ao obter dados do produto!', "Erro!");
     })
   }
   goBack() {
