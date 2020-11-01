@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { exit } from 'process';
+import { ApiService } from './shared/services/api.service';
 import { AuthService } from './shared/services/auth.service';
 import { DialogService } from './shared/services/dialog/dialog.service';
 
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 
   badge: number;
 
-  constructor(private router: Router, private authService: AuthService, private dialogService: DialogService) {
+  constructor(private router: Router, private authService: AuthService, private dialogService: DialogService, private apiService: ApiService) {
   }
   carrinho;
   usuario = '';
@@ -33,8 +34,14 @@ export class AppComponent implements OnInit {
       this.perfil = 3;
     } else {
       if (this.authService.getUser().length > 1) {
-        this.usuario = this.authService.getUser();
-        this.perfil = parseInt(this.authService.getPerfil());
+        let userId = this.authService.getUserId();
+        this.apiService.getUsuario(userId).subscribe(response => {
+          //console.log(response)
+          //  this.userForm.controls['nome'].setValue(response.nome);
+          this.usuario = response.nome;
+          this.perfil = parseInt(this.authService.getPerfil());
+        });
+
       }
     }
   }
@@ -71,7 +78,7 @@ export class AppComponent implements OnInit {
         this.carrinho = JSON.parse(this.authService.getCarrinho())
         if (this.carrinho != null) {
           let count = 0;
-          this.carrinho.forEach(produto =>{
+          this.carrinho.forEach(produto => {
             count += produto.quantidade;
           })
           return count;
