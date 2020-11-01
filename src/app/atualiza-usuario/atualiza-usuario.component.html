@@ -59,14 +59,14 @@
                             <mat-label>Aceita Cartão?</mat-label>
                             <mat-select formControlName="pagamento_cartao" (selectionChange)="onChangeCartao($event.value)">
                                 <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao">
-                                    {{opcao}} {{cartao}}
+                                    {{opcao}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <br>
                     <div class="buttons">
-                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="atualizaUsuario()" [disabled]="(!this.userForm.valid || (this.cartao == '' && this.perfil == 1) )">Atualizar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="atualizaUsuario()" [disabled]="(!this.userForm.valid || (this.cartao == '' && this.perfil == 1))">Atualizar</button></div>
                         <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
                     </div>
                 </form>

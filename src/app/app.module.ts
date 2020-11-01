@@ -34,6 +34,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
 import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
+import { ModalVisualizarProdutoComponent } from './modais/modal-visualizar-produto/modal-visualizar-produto.component';
 
 
 
@@ -52,7 +53,8 @@ import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.co
     CarrinhoComponent,
     ErrorComponent,
     AppComponent,
-    AtualizaProdutoComponent,    
+    AtualizaProdutoComponent,
+    ModalVisualizarProdutoComponent,    
   ],
   imports: [
     BrowserAnimationsModule,
