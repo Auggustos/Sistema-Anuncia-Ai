@@ -1,3 +1,5 @@
+import { Usuario } from './usuario.class';
+
 export class Produto {
     id: string;
     nome: string;
@@ -6,7 +8,8 @@ export class Produto {
     imagem: string;
     id_usuario: string;
     quantidade: number;
-    constructor(id, nome, descricao, preco, imagem, id_usuario, quantidade) {
+    usuario: Usuario;
+    constructor(id, nome, descricao, preco, imagem, id_usuario, quantidade,usuario) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -14,5 +17,6 @@ export class Produto {
         this.imagem = imagem;
         this.id_usuario = id_usuario;
         this.quantidade = quantidade;
+        this.usuario = usuario
     }
 }

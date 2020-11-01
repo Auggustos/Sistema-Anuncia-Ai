@@ -13,12 +13,12 @@ import { Usuario } from '../classes/usuario.class';
 })
 export class AtualizaUsuarioComponent implements OnInit {
 
-  perfil = '';
+  perfil;
   cartao = '';
 
   constructor(private dialogService: DialogService, private router: Router, private apiService: ApiService, private authService: AuthService) {
     this.apiService.getUsuario(this.authService.getUserId()).subscribe(response => {
-      this.perfil = response.perfil;
+      this.perfil = parseInt(response.perfil);
     }, error => {
 
     });
@@ -30,6 +30,8 @@ export class AtualizaUsuarioComponent implements OnInit {
   perfis = [{ id: 0, texto: 'Cliente' }, { id: 1, texto: 'Fornecedor' }];
 
   aceitaCartao = ['Sim', 'Não'];
+
+  public mask = ['(', /[1-9]/, /\d/, ')',' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   userForm = new FormGroup({
     nome: new FormControl(''),

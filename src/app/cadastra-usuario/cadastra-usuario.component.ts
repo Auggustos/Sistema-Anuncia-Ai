@@ -19,15 +19,17 @@ export class CadastraUsuarioComponent implements OnInit {
 
   aceitaCartao = [{value:true,texto:'Sim'},{value:false,texto:'Não'}];
 
+  public mask = ['(', /[1-9]/, /\d/, ')',' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
   userForm = new FormGroup({
-    nome: new FormControl(''),
-    sobrenome: new FormControl(''),
-    endereco: new FormControl(''),
-    celular: new FormControl(''),
+    nome: new FormControl('',Validators.required),
+    sobrenome: new FormControl('',Validators.required),
+    endereco: new FormControl('',Validators.required),
+    celular: new FormControl('',Validators.required),
     email: new FormControl(''),
-    usuario: new FormControl(''),
-    senha: new FormControl(''),
-    perfil: new FormControl(''),
+    usuario: new FormControl('',Validators.required),
+    senha: new FormControl('',Validators.required),
+    perfil: new FormControl('',Validators.required),
     pagamento_cartao: new FormControl('')
   });
 

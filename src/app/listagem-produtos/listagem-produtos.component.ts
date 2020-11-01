@@ -44,11 +44,13 @@ export class ListagemProdutosComponent implements OnInit {
         const userId = this.authService.getUserId();
         response.forEach(produto => {
           if (produto.id_usuario != userId) {
+            console.log(produto);
             this.produtos.push(produto);
           }
         })
       } else {
         response.forEach(produto => {
+          console.log(produto);
           this.produtos.push(produto);
         }
         )
