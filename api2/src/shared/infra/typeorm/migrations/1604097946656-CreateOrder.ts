@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
 import { Table } from 'typeorm/schema-builder/table/Table';
 
-export default class CreateProducts1604094347235 implements MigrationInterface {
+export default class CreateOrder1604097946656 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'produtos',
+        name: 'pedidos',
         columns: [
           {
             name: 'id',
@@ -14,34 +14,14 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'descricao',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'preco',
-            type: 'double',
-            isNullable: false,
-          },
-          {
-            name: 'imagem',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
             name: 'id_usuario',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'quantidade',
+            name: 'status',
             type: 'integer',
-            isNullable: false,
-          },
-          {
-            name: 'nome',
-            type: 'varchar',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'criado_em',
@@ -53,19 +33,14 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()',
           },
-          {
-            name: 'deletado_em',
-            type: 'timestamp',
-            isNullable: true,
-          },
         ],
       })
     );
 
     await queryRunner.createForeignKey(
-      'produtos',
+      'pedidos',
       new TableForeignKey({
-        name: 'ProductProvider',
+        name: 'OrderProvider',
         columnNames: ['id_usuario'],
         referencedColumnNames: ['id'],
         referencedTableName: 'usuarios',
@@ -75,7 +50,7 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('produtos', 'ProductProvider');
-    await queryRunner.dropTable('produtos');
+    await queryRunner.dropForeignKey('pedidos', 'OrderProvider');
+    await queryRunner.dropTable('pedidos');
   }
 }

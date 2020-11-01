@@ -1,11 +1,12 @@
 import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
 import { Table } from 'typeorm/schema-builder/table/Table';
 
-export default class CreateProducts1604094347235 implements MigrationInterface {
+export default class CreatePedidoProduto1604104378246
+  implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'produtos',
+        name: 'pedido_produto',
         columns: [
           {
             name: 'id',
@@ -14,34 +15,24 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'descricao',
+            name: 'id_pedido',
             type: 'varchar',
-            isNullable: false,
+            isNullable: true,
           },
           {
-            name: 'preco',
-            type: 'double',
-            isNullable: false,
-          },
-          {
-            name: 'imagem',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'id_usuario',
+            name: 'id_produto',
             type: 'varchar',
             isNullable: true,
           },
           {
             name: 'quantidade',
             type: 'integer',
-            isNullable: false,
+            isNullable: true,
           },
           {
-            name: 'nome',
-            type: 'varchar',
-            isNullable: false,
+            name: 'status',
+            type: 'integer',
+            isNullable: true,
           },
           {
             name: 'criado_em',
@@ -53,29 +44,35 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()',
           },
-          {
-            name: 'deletado_em',
-            type: 'timestamp',
-            isNullable: true,
-          },
         ],
       })
     );
 
     await queryRunner.createForeignKey(
-      'produtos',
+      'pedido_produto',
       new TableForeignKey({
-        name: 'ProductProvider',
-        columnNames: ['id_usuario'],
+        name: 'OrderProductProvider',
+        columnNames: ['id_pedido'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'usuarios',
+        referencedTableName: 'pedidos',
+        onDelete: 'SET NULL',
+      })
+    );
+    await queryRunner.createForeignKey(
+      'pedido_produto',
+      new TableForeignKey({
+        name: 'ProductOrderProvider',
+        columnNames: ['id_produto'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'produtos',
         onDelete: 'SET NULL',
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('produtos', 'ProductProvider');
-    await queryRunner.dropTable('produtos');
+    await queryRunner.dropForeignKey('pedido_produto', 'OrderProductProvider');
+    await queryRunner.dropForeignKey('pedido_produto', 'ProductOrderProvider');
+    await queryRunner.dropTable('pedido_produto');
   }
 }
