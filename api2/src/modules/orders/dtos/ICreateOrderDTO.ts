@@ -5,4 +5,7 @@ export default interface ICreateOrderDTO {
   id_usuario: string;
   status: number;
   pedido_produtos: OrderProduct[];
+  endereco_entrega: string;
+  valor_produtos: number;
+  valor_final: number;
 }

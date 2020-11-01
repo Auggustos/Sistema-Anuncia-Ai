@@ -6,7 +6,9 @@ import ProductsRepository from '@modules/products/infra/typeorm/repositories/Pro
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
+import ISalesRepository from '@modules/orders/repositories/ISalesRepository';
 import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
+import SalesRepository from '@modules/orders/infra/typeorm/repositories/SalesRepository';
 
 // <IProductsRepository> garante que o tipo de ProductsRepository seja do IProductsRepository
 container.registerSingleton<IProductsRepository>(
@@ -22,4 +24,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IOrdersRepository>(
   'OrdersRepository',
   OrdersRepository
+);
+
+container.registerSingleton<ISalesRepository>(
+  'SalesRepository',
+  SalesRepository
 );
