@@ -9,7 +9,6 @@ import {
   OneToMany,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
-import Product from '@modules/products/infra/typeorm/entities/Product';
 import OrderProduct from './OrderProduct';
 
 @Entity('pedidos') // referencia da tabela no banco de dados
@@ -27,12 +26,21 @@ class Order {
   usuario: User;
 
   @OneToMany(() => OrderProduct, op => op.pedido, {
-    cascade: true,
+    cascade: ['insert', 'update'],
   })
   pedido_produtos: OrderProduct[];
 
   @Column()
   status: number;
+
+  @Column()
+  endereco_entrega: string;
+
+  @Column()
+  valor_produtos: number;
+
+  @Column()
+  valor_final: number;
 
   @CreateDateColumn()
   criado_em: Date;

@@ -24,6 +24,18 @@ export default class CreateOrder1604097946656 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'endereco_entrega',
+            type: 'varchar',
+          },
+          {
+            name: 'valor_produtos',
+            type: 'double',
+          },
+          {
+            name: 'valor_final',
+            type: 'double',
+          },
+          {
             name: 'criado_em',
             type: 'timestamp',
             default: 'now()',

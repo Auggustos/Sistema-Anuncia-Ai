@@ -30,6 +30,14 @@ export default class CreatePedidoProduto1604104378246
             isNullable: true,
           },
           {
+            name: 'valor_unitario',
+            type: 'double',
+          },
+          {
+            name: 'valor',
+            type: 'double',
+          },
+          {
             name: 'status',
             type: 'integer',
             isNullable: true,
