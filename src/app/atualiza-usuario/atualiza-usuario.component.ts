@@ -13,7 +13,16 @@ import { Usuario } from '../classes/usuario.class';
 })
 export class AtualizaUsuarioComponent implements OnInit {
 
-  constructor(private dialogService: DialogService, private router: Router, private apiService: ApiService, private authService: AuthService) { }
+  perfil;
+  cartao = '';
+
+  constructor(private dialogService: DialogService, private router: Router, private apiService: ApiService, private authService: AuthService) {
+    this.apiService.getUsuario(this.authService.getUserId()).subscribe(response => {
+      this.perfil = parseInt(response.perfil);
+    }, error => {
+
+    });
+   }
 
   hide = true;
   hide1 = true;
@@ -22,9 +31,7 @@ export class AtualizaUsuarioComponent implements OnInit {
 
   aceitaCartao = ['Sim', 'Não'];
 
-
-  perfil = 1;
-  cartao = '';
+  public mask = ['(', /[1-9]/, /\d/, ')',' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   userForm = new FormGroup({
     nome: new FormControl(''),
