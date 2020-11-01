@@ -22,7 +22,7 @@ let ELEMENT_DATA: PedidoProduto[] = []
 })
 export class ModalVisualizarPedidoComponent implements OnInit {
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Nome', 'Descrição', 'Valor', 'Quantidade'];
+  displayedColumns = ['Nome', 'Descrição', 'Valor','Status', 'Quantidade'];
 
   constructor(
     private apiService: ApiService, 
