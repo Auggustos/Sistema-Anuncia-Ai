@@ -22,7 +22,6 @@ export class ModalVisualizarProdutoComponent implements OnInit {
     produto: Produto;
 
   ngOnInit(): void {
-    console.log(this.data);
     this.apiService.getProdutos().subscribe(response => {
       if (this.authService.isLoggedIn()) {
         const userId = this.authService.getUserId();

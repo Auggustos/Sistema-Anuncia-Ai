@@ -21,6 +21,13 @@ export interface Carrinho {
   nome: string,
 }
 
+export interface PedidoProdutoAux {
+  id_produto: string,
+  quantidade: number,
+  status: number,
+  valor: number
+}
+
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.component.html',
@@ -79,16 +86,12 @@ export class CarrinhoComponent implements OnInit {
     this.authService.limpaCarrinho();
     ELEMENT_DATA.forEach(
       produto => {
-        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade, nome: produto.item });
       }
     )
     var textoCarrinho = JSON.stringify(this.carrinho);
     this.authService.setCarrinho(textoCarrinho);
     location.reload();
-  }
-
-  finalizaCompra() {
-    console.log(ELEMENT_DATA.length);
   }
 
   limpaCarrinho() {
@@ -111,7 +114,7 @@ export class CarrinhoComponent implements OnInit {
     this.authService.limpaCarrinho();
     ELEMENT_DATA.forEach(
       produto => {
-        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade, nome: produto.item });
       }
     )
     var textoCarrinho = JSON.stringify(this.carrinho);
@@ -134,11 +137,41 @@ export class CarrinhoComponent implements OnInit {
     this.authService.limpaCarrinho();
     ELEMENT_DATA.forEach(
       produto => {
-        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade,nome:produto.item });
+        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade, nome: produto.item });
       }
     )
     var textoCarrinho = JSON.stringify(this.carrinho);
     this.authService.setCarrinho(textoCarrinho);
     location.reload();
+  }
+  montaPedido() {
+    let produtoPedido: PedidoProdutoAux[] = []
+    let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor: 0};
+    ELEMENT_DATA.forEach(produto => {
+      produtoAux.id_produto = produto.id,
+      produtoAux.quantidade = produto.quantidade
+      produtoAux.status = 0;
+      produtoAux.valor = produto.cost;
+      produtoPedido.push(produtoAux);
+    })
+    return produtoPedido;
+  }
+
+  finalizaPedido() {
+    let body = this.loadBody();
+    this.apiService.postPedido(body,this.authService.token).subscribe(success =>{
+      this.dialogService.showSuccess(`Compra Efetuada, aguarde a aprovação e contato do vendedor!`,"Compra Efetuada!").then(result => {
+        this.router.navigateByUrl('').then(success => location.reload())
+      });
+    },error =>{
+      this.dialogService.showError(`Erro ao finalizar compra`, "Erro!")
+    })
+  }
+  loadBody() {
+    return {
+      status: 0,
+      valor: this.getTotalCost(),
+      pedido_produtos: this.montaPedido()
+    }
   }
 }
