@@ -135,7 +135,7 @@ export class AuthService {
     const retorno = localStorage.getItem('userSobrenome');
     return retorno;
   }
-  setCarrinho( carrinho: string ){
+  setCarrinho(carrinho: string) {
     localStorage.setItem('carrinho', carrinho);
   }
 
@@ -144,7 +144,7 @@ export class AuthService {
     return retorno;
   }
 
-  limpaCarrinho(){
+  limpaCarrinho() {
     localStorage.setItem('carrinho', '');
   }
 }
@@ -174,7 +174,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     if (this.authService.isLoggedIn()) {
-     // this.authService.refreshToken();
+      // this.authService.refreshToken();
 
       return true;
     } else {

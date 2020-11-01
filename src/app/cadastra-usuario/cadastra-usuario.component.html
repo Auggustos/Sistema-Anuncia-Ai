@@ -25,7 +25,7 @@
                     <div class="row">
                         <mat-form-field class="example-full-width">
                             <mat-label>Celular</mat-label>
-                            <input matInput type="tel" matInput placeholder="(35)9 99999999" formControlName="celular">
+                            <input [textMask]="{mask: mask}" type="text" matInput placeholder="(99) 999999999" formControlName="celular">
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -65,7 +65,7 @@
                     </div>
                     <br>
                     <div class="buttons">
-                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()">Cadastrar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.userForm.valid">Cadastrar</button></div>
                         <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
                     </div>
                 </form>

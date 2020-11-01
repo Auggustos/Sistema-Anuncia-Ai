@@ -17,7 +17,7 @@ export class TelaLoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     usuario: new FormControl('', Validators.required),
-    senha: new FormControl('', Validators.required),
+    senha: new FormControl('',  [Validators.required,Validators.minLength(6)]),
   });
   usuarios: { user: String, senha: String }[] = [];
 
@@ -41,4 +41,6 @@ export class TelaLoginComponent implements OnInit {
     );
 
   }
+
+
 }

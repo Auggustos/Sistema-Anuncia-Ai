@@ -25,7 +25,7 @@
                     <div class="row">
                         <mat-form-field class="example-full-width">
                             <mat-label>Celular</mat-label>
-                            <input matInput type="tel" matInput placeholder="(35)9 99999999" formControlName="celular">
+                            <input [textMask]="{mask: mask}" type="text" matInput placeholder="(99) 999999999" formControlName="celular">
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -49,15 +49,15 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Perfil</mat-label>
-                            <mat-select formControlName="perfil">
+                            <mat-select formControlName="perfil" (selectionChange)="onChangePerfil($event.value)">
                                 <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
                                     {{perfil.texto}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 'Fornecedor'">
+                        <mat-form-field class="entrada-cartao" *ngIf="userForm.value.perfil == 1">
                             <mat-label>Aceita Cartão?</mat-label>
-                            <mat-select formControlName="pagamento_cartao">
+                            <mat-select formControlName="pagamento_cartao" (selectionChange)="onChangeCartao($event.value)">
                                 <mat-option *ngFor="let opcao of aceitaCartao" [value]="opcao">
                                     {{opcao}}
                                 </mat-option>
@@ -66,7 +66,7 @@
                     </div>
                     <br>
                     <div class="buttons">
-                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="atualizaUsuario()" [disabled]="!this.userForm.valid">Atualizar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="atualizaUsuario()" [disabled]="(!this.userForm.valid || (this.cartao == '' && this.perfil == 1))">Atualizar</button></div>
                         <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
                     </div>
                 </form>

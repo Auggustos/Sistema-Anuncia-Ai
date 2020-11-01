@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import{ DialogService } from '../shared/services/dialog/dialog.service'
+import { DialogService } from '../shared/services/dialog/dialog.service'
 import { Router } from "@angular/router";
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
+import { Usuario } from '../classes/usuario.class';
 
 @Component({
   selector: 'app-atualiza-usuario',
@@ -12,28 +13,52 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class AtualizaUsuarioComponent implements OnInit {
 
-  constructor(private dialogService: DialogService,private router: Router,private apiService: ApiService, private authService: AuthService) { }
+  perfil;
+  cartao = '';
+
+  constructor(private dialogService: DialogService, private router: Router, private apiService: ApiService, private authService: AuthService) {
+    this.apiService.getUsuario(this.authService.getUserId()).subscribe(response => {
+      this.perfil = parseInt(response.perfil);
+    }, error => {
+
+    });
+   }
 
   hide = true;
   hide1 = true;
 
-  perfis = [{id:0,texto:'Cliente'},{id:1,texto:'Fornecedor'}];
+  perfis = [{ id: 0, texto: 'Cliente' }, { id: 1, texto: 'Fornecedor' }];
 
-  aceitaCartao = ['Sim','Não'];
+  aceitaCartao = ['Sim', 'Não'];
+
+  public mask = ['(', /[1-9]/, /\d/, ')',' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   userForm = new FormGroup({
-    nome: new FormControl(this.authService.getUser()),
-    sobrenome: new FormControl(this.authService.getUserSobrenome()),
-    endereco: new FormControl(this.authService.getUserEndereco()),
-    celular: new FormControl(this.authService.getUserCelular()),
-    email: new FormControl(this.authService.getUserEmail()),
-    perfil: new FormControl('',Validators.required),
-    senhaAntiga: new FormControl('',[Validators.required, Validators.minLength(6)]),
-    senhaNova1: new FormControl('',Validators.minLength(6)),
-    pagamento_cartao: new FormControl(),
+    nome: new FormControl(''),
+    sobrenome: new FormControl(''),
+    endereco: new FormControl(''),
+    celular: new FormControl(''),
+    email: new FormControl(''),
+    perfil: new FormControl('', Validators.required),
+    senhaAntiga: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    senhaNova1: new FormControl('', Validators.minLength(6)),
+    pagamento_cartao: new FormControl(''),
   });
 
   ngOnInit(): void {
+    let userId = this.authService.getUserId();
+    this.apiService.getUsuario(userId).subscribe(response => {
+      this.userForm.controls['nome'].setValue(response.nome);
+      this.userForm.controls['sobrenome'].setValue(response.sobrenome);
+      this.userForm.controls['endereco'].setValue(response.endereco);
+      this.userForm.controls['celular'].setValue(response.celular);
+      this.userForm.controls['email'].setValue(response.email);
+      this.userForm.controls['perfil'].setValue(response.perfil);
+      this.userForm.controls['pagamento_cartao'].setValue('');
+      this.cartao = "";
+    }, error => {
+
+    });
 
   }
   goBack() {
@@ -41,17 +66,17 @@ export class AtualizaUsuarioComponent implements OnInit {
   }
   atualizaUsuario() {
     const body = this.loadBody();
-    this.apiService.atualizaUsuario(body,this.authService.token).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`,'Usuario Atualizado!').then(result => {
+    this.apiService.atualizaUsuario(body, this.authService.token).subscribe(success => {
+      this.dialogService.showSuccess(`Usuário ${this.userForm.value.nome} atualizado com sucesso!`, 'Usuario Atualizado!').then(result => {
         this.router.navigate(['']).then(success => location.reload())
       });
     },
-    error => {
-      this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
-    });
+      error => {
+        this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
+      });
   }
 
-  loadBody(){
+  loadBody() {
     return {
       nome: this.userForm.value.nome,
       sobrenome: this.userForm.value.sobrenome,
@@ -62,8 +87,15 @@ export class AtualizaUsuarioComponent implements OnInit {
       senha: this.userForm.value.senhaNova1,
       perfil: this.userForm.value.perfil,
       pagamento_cartao: this.userForm.value.pagamento_cartao
-  }
+    }
   }
 
+
+  onChangePerfil(perfil) {
+    this.perfil = perfil;
+  }
+  onChangeCartao(cartao) {
+    this.cartao = cartao;
+  }
 
 }

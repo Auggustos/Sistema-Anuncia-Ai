@@ -12,22 +12,39 @@ export class ApiService {
   constructor(private http: HttpClient) { }
   url = "http://localhost:3000";
 
-  getProdutos(): Observable<Produto[]> {
+
+
+  postUsuario(body): Observable<any> { // cria um usuário
+    return this.http.post(`${this.url}/users`, body)
+      .pipe();
+  }
+  getUsuario(id): Observable<any> { // retora um usuário especifico
+    return this.http.get<Usuario>(`${this.url}/profile`, id);
+  }
+  atualizaUsuario(body, token): Observable<any> { // atualiza um usuário
+    return this.http.put(`${this.url}/profile`, body, token)
+      .pipe();
+  }
+
+
+  getProdutos(): Observable<Produto[]> { // retorna todos os produtos
     return this.http.get<Produto[]>(`${this.url}/products`);
   }
 
-  postUsuario(body):Observable<any>{
-    return this.http.post(`${this.url}/users`,body)
-    .pipe();
+  postProdutos(body): Observable<any> { //cria um produto
+    return this.http.post(`${this.url}/products`, body).pipe();
   }
-  postProdutos(body): Observable<any> {
-    return this.http.post(`${this.url}/products`,body).pipe();
+  getProduto(id, token): Observable<any> { // retorna um produto especifico
+    return this.http.delete(`${this.url}/products/${id}`, token)
+      .pipe();
+  }
+  atualizaProduto(body, token): Observable<any> { // atualiza um produto especifico
+    return this.http.put(`${this.url}/products`, body, token)
+      .pipe();
+  }
+  deletaProduto(id, token): Observable<{}> { // deleta um produto
+    return this.http.delete(`${this.url}/products/${id}`, token)
+      .pipe();
   }
 
-  atualizaUsuario(body,token):Observable<any>{
-    return this.http.put(`${this.url}/users`,body,token)
-    .pipe();
-  }
-
-  
 }

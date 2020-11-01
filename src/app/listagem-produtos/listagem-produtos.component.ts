@@ -5,6 +5,9 @@ import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
+import { ModalVisualizarProdutoComponent } from '../modais/modal-visualizar-produto/modal-visualizar-produto.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-listagem-produtos',
   templateUrl: './listagem-produtos.component.html',
@@ -26,7 +29,8 @@ export class ListagemProdutosComponent implements OnInit {
   }
   carrinho: { produtoId: string, idCliente: string, preco: number, quantidade: number, nome: string }[] = [];
 
-  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
+    public dialog: MatDialog) { }
   produtos: Produto[] = [];
 
   showFiller = false;
@@ -36,12 +40,21 @@ export class ListagemProdutosComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiService.getProdutos().subscribe(response => {
-      const userId = this.authService.getUserId();
-      response.forEach(produto => {
-        if (produto.id_usuario != userId) {
+      if (this.authService.isLoggedIn()) {
+        const userId = this.authService.getUserId();
+        response.forEach(produto => {
+          if (produto.id_usuario != userId) {
+            console.log(produto);
+            this.produtos.push(produto);
+          }
+        })
+      } else {
+        response.forEach(produto => {
+          console.log(produto);
           this.produtos.push(produto);
         }
-      })
+        )
+      }
     },
       error => {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
@@ -74,6 +87,22 @@ export class ListagemProdutosComponent implements OnInit {
       this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       })
+    }
+  }
+
+  visualizaProduto(id: string) {
+    if (!this.authService.isLoggedIn()) {
+      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
+        this.router.navigateByUrl('login').then(success => location.reload())
+      })
+    }else{
+      this.dialog.open(ModalVisualizarProdutoComponent, {
+        width: '20%',
+        height: '601px',
+        data: {
+          idProduto: id,
+        }
+      });
     }
   }
 
