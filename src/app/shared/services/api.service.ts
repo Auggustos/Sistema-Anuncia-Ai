@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Produto } from '../../classes/produto.class';
 import { Usuario } from '../../classes/usuario.class';
 import { Observable, of } from 'rxjs';
+import { Pedido } from 'src/app/classes/Pedido.class';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class ApiService {
     return this.http.post(`${this.url}/products`, body).pipe();
   }
   getProduto(id, token): Observable<any> { // retorna um produto especifico
-    return this.http.delete(`${this.url}/products/${id}`, token)
+    return this.http.get(`${this.url}/products/${id}`, token)
       .pipe();
   }
   atualizaProduto(body, token): Observable<any> { // atualiza um produto especifico
@@ -45,6 +46,14 @@ export class ApiService {
   deletaProduto(id, token): Observable<{}> { // deleta um produto
     return this.http.delete(`${this.url}/products/${id}`, token)
       .pipe();
+  }
+
+  getPedidos(token):Observable<any>{
+    return this.http.get<Pedido[]>(`${this.url}/order`,token);
+  }
+
+  postPedido(body,token):Observable<any>{
+    return this.http.post(`${this.url}/order`,body,token);
   }
 
 }
