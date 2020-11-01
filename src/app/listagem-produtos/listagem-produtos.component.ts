@@ -36,13 +36,20 @@ export class ListagemProdutosComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiService.getProdutos().subscribe(response => {
-      const userId = this.authService.getUserId();
-      response.forEach(produto => {
-        if (produto.id_usuario != userId) {
-          console.log(produto)
+      if (this.authService.isLoggedIn()) {
+        const userId = this.authService.getUserId();
+        response.forEach(produto => {
+          if (produto.id_usuario != userId) {
+            console.log(produto)
+            this.produtos.push(produto);
+          }
+        })
+      } else {
+        response.forEach(produto => {
           this.produtos.push(produto);
         }
-      })
+        )
+      }
     },
       error => {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")

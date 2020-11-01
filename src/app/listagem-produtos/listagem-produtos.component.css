@@ -59,4 +59,13 @@ body {
     margin-right: 0;
 }
 
-.imagem-produto {}
+.teste-pai {
+    position: relative;
+}
+
+.teste-filho {
+    color: #4CB258;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
