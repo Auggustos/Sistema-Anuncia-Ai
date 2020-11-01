@@ -41,7 +41,6 @@ export class AtualizaUsuarioComponent implements OnInit {
   ngOnInit(): void {
     let userId = this.authService.getUserId();
     this.apiService.getUsuario(userId).subscribe(response => {
-      //console.log(response)
       this.userForm.controls['nome'].setValue(response.nome);
       this.userForm.controls['sobrenome'].setValue(response.sobrenome);
       this.userForm.controls['endereco'].setValue(response.endereco);
@@ -87,11 +86,9 @@ export class AtualizaUsuarioComponent implements OnInit {
 
   onChangePerfil(perfil) {
     this.perfil = perfil;
-    console.log(this.perfil);
   }
   onChangeCartao(cartao) {
     this.cartao = cartao;
-    console.log(this.cartao);
   }
 
 }

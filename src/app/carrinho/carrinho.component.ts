@@ -47,7 +47,6 @@ export class CarrinhoComponent implements OnInit {
   ngOnInit(): void {
     //this.badge.emit({valor: ELEMENT_DATA.length});
     if (this.authService.getCarrinho()) {
-      console.log(JSON.parse(this.authService.getCarrinho()));
       let carrinhoAux = JSON.parse(this.authService.getCarrinho());
       if (carrinhoAux.length > 0) {
         carrinhoAux.forEach(produto => {

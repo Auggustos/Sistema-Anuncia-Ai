@@ -30,7 +30,6 @@ export class ApiService {
   }
 
   getUsuario(id):Observable<any>{
-    console.log(id);
     return this.http.get<Usuario>(`${this.url}/profile`,id);
   }
   atualizaProduto(body,token):Observable<any>{
