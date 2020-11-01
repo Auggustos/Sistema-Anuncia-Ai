@@ -147,8 +147,8 @@ export class CarrinhoComponent implements OnInit {
   }
   montaPedido() {
     let produtoPedido: PedidoProdutoAux[] = []
-    let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor_unitario: 0,valor: 0};
     ELEMENT_DATA.forEach(produto => {
+      let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor_unitario: 0,valor: 0};
       produtoAux.id_produto = produto.id,
       produtoAux.quantidade = produto.quantidade
       produtoAux.status = 0;
@@ -162,8 +162,9 @@ export class CarrinhoComponent implements OnInit {
   finalizaPedido() {
     let body = this.loadBody();
     this.apiService.postPedido(body,this.authService.token).subscribe(success =>{
+      this.limpaCarrinho();
       this.dialogService.showSuccess(`Compra Efetuada, aguarde a aprovação e contato do vendedor!`,"Compra Efetuada!").then(result => {
-        this.router.navigateByUrl('').then(success => location.reload())
+        this.router.navigateByUrl('pedidos').then(success => location.reload())
       });
     },error =>{
       this.dialogService.showError(`Erro ao finalizar compra`, "Erro!")
@@ -172,8 +173,8 @@ export class CarrinhoComponent implements OnInit {
   loadBody() {
     return {
       status: 0,
-      valor: this.getTotalCost(),
-      endereco: this.authService.getUserEndereco(),
+      valor_produtos: this.getTotalCost(),
+      endereco_entrega: this.authService.getUserEndereco(),
       pedido_produtos: this.montaPedido()
     }
   }

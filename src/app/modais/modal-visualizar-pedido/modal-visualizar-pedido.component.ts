@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PedidoProduto } from 'src/app/classes/pedidoProduto.class';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DialogService } from 'src/app/shared/services/dialog/dialog.service';
@@ -12,6 +13,8 @@ export interface ItemPedido {
   quantidade: number,
 }
 
+let ELEMENT_DATA: PedidoProduto[] = []
+
 @Component({
   selector: 'app-modal-visualizar-pedido',
   templateUrl: './modal-visualizar-pedido.component.html',
@@ -19,7 +22,7 @@ export interface ItemPedido {
 })
 export class ModalVisualizarPedidoComponent implements OnInit {
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Nome', 'Descrição', 'Valor', 'Quantidade'];
+  displayedColumns = ['Nome', 'Descrição', 'Valor','Status', 'Quantidade'];
 
   constructor(
     private apiService: ApiService, 
@@ -31,35 +34,16 @@ export class ModalVisualizarPedidoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    ELEMENT_DATA = this.data.pedidoProduto;
+    this.atualizaTabela();  
     console.log(this.data.pedidoProduto)
    }
 
   goBack() {
     window.history.back();
   }
+  atualizaTabela() {
+    this.dataSource = ELEMENT_DATA;
+  }
 
 }
-
-const ELEMENT_DATA: ItemPedido[] = [
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-  { nome: 'Colher de madeira', descricao: 'Colher de madeira pra vc fazer um acomindinha hmmmmmm', valor: 5, quantidade: 1 },
-  { nome: 'Camiseta lisa', descricao: 'Camiseta lisa pra ir nos bailes da familia', valor: 25, quantidade: 2 },
-  { nome: 'Piru de Borracha', descricao: 'Piruzao 45cm ', valor: 50, quantidade: 2 },
-];

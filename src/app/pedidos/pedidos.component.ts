@@ -58,7 +58,6 @@ export class PedidosComponent implements OnInit {
     let dadosTabela : Pedido[] = []
     this.apiService.getPedidos(this.authService.token).subscribe(response => {
       dadosTabela = response;
-      console.log(dadosTabela)
       ELEMENT_DATA = dadosTabela;
       this.atualizaTabela();     
 
