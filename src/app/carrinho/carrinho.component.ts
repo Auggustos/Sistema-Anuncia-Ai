@@ -25,7 +25,8 @@ export interface PedidoProdutoAux {
   id_produto: string,
   quantidade: number,
   status: number,
-  valor: number
+  valor_unitario: number,
+  valor:number,
 }
 
 @Component({
@@ -146,12 +147,13 @@ export class CarrinhoComponent implements OnInit {
   }
   montaPedido() {
     let produtoPedido: PedidoProdutoAux[] = []
-    let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor: 0};
+    let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor_unitario: 0,valor: 0};
     ELEMENT_DATA.forEach(produto => {
       produtoAux.id_produto = produto.id,
       produtoAux.quantidade = produto.quantidade
       produtoAux.status = 0;
-      produtoAux.valor = produto.cost;
+      produtoAux.valor_unitario = produto.cost;
+      produtoAux.valor = produto.cost * produto.quantidade;
       produtoPedido.push(produtoAux);
     })
     return produtoPedido;
@@ -171,6 +173,7 @@ export class CarrinhoComponent implements OnInit {
     return {
       status: 0,
       valor: this.getTotalCost(),
+      endereco: this.authService.getUserEndereco(),
       pedido_produtos: this.montaPedido()
     }
   }
