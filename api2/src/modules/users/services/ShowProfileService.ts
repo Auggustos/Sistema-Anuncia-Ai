@@ -12,7 +12,7 @@ export default class ShowProfileService {
     private usersRepository: IUsersRepository
   ) {}
 
-  public async execute(id : string): Promise<User> {
+  public async execute(id: string): Promise<User> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
