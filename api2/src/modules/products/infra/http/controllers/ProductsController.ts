@@ -5,6 +5,7 @@ import CreateProductService from '@modules/products/services/CreateProductServic
 import sharp from 'sharp';
 import fs from 'fs';
 import ShowProductService from '@modules/products/services/ShowProductService';
+import SoftDeleteProductService from '@modules/products/services/SoftDeleteProductService';
 import UpdateProductService from '@modules/products/services/UpdateProductService';
 
 export default class ProductsController {
@@ -83,6 +84,19 @@ export default class ProductsController {
     });
 
     delete product.usuario;
+
+    return response.json(product);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { id } = request.params;
+    const deleteProduct = container.resolve(SoftDeleteProductService);
+
+    const product = await deleteProduct.execute({
+      user_id,
+      id,
+    });
 
     return response.json(product);
   }

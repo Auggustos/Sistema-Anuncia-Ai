@@ -7,4 +7,5 @@ export default interface IUsersRepository {
   findById(id: string): Promise<Product | undefined>;
   create(data: ICreateProductDTO): Promise<Product>;
   save(product: Product): Promise<Product>;
+  delete(product: Product): Promise<Product>;
 }
