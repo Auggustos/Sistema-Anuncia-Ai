@@ -36,8 +36,6 @@ export class AppComponent implements OnInit {
       if (this.authService.getUser().length > 1) {
         let userId = this.authService.getUserId();
         this.apiService.getUsuario(userId).subscribe(response => {
-          //console.log(response)
-          //  this.userForm.controls['nome'].setValue(response.nome);
           this.usuario = response.nome;
           this.perfil = parseInt(this.authService.getPerfil());
         });
