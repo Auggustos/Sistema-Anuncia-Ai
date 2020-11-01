@@ -37,6 +37,12 @@ class OrderProduct {
   quantidade: number;
 
   @Column()
+  valor_unitario: number;
+
+  @Column()
+  valor: number;
+
+  @Column()
   status: number;
 
   @CreateDateColumn()
