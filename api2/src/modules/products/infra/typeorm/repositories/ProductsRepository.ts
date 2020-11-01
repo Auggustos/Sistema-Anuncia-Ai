@@ -39,6 +39,10 @@ class ProductsRepository implements IProductRepository {
   public async save(product: Product): Promise<Product> {
     return this.ormRepository.save(product);
   }
+
+  public async delete(product: Product): Promise<Product> {
+    return this.ormRepository.softRemove(product);
+  }
 }
 
 export default ProductsRepository;

@@ -6,26 +6,19 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
+import Product from '@modules/products/infra/typeorm/entities/Product';
+import OrderProduct from './OrderProduct';
 
-@Entity('produtos') // referencia da tabela no banco de dados
-class Product {
+@Entity('pedidos') // referencia da tabela no banco de dados
+class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   // @Column('type') => quando vazio o tipo padrão é string (varchar)
   // CTRL + SPACE mostra os tipos disponiveis.
-  @Column()
-  descricao: string;
-
-  @Column()
-  preco: number;
-
-  @Column()
-  imagem: string;
-
   @Column()
   id_usuario: string;
 
@@ -33,20 +26,19 @@ class Product {
   @JoinColumn({ name: 'id_usuario' })
   usuario: User;
 
-  @Column()
-  quantidade: number;
+  @OneToMany(() => OrderProduct, op => op.pedido, {
+    cascade: true,
+  })
+  pedido_produtos: OrderProduct[];
 
   @Column()
-  nome: string;
+  status: number;
 
   @CreateDateColumn()
   criado_em: Date;
 
   @UpdateDateColumn()
   atualizado_em: Date;
-
-  @DeleteDateColumn()
-  deletado_em: Date;
 }
 
-export default Product;
+export default Order;

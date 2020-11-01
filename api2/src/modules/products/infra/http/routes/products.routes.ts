@@ -20,5 +20,6 @@ productsRouter.post(
 productsRouter.get('/', productsController.index);
 productsRouter.get('/:id', productsController.show);
 productsRouter.put('/', ensureAuhenticated, productsController.update);
+productsRouter.delete('/:id', ensureAuhenticated, productsController.delete);
 
 export default productsRouter;
