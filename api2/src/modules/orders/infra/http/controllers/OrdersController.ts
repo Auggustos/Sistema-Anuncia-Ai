@@ -6,18 +6,23 @@ import { container } from 'tsyringe';
 
 export default class OrdersController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const { perfil, id } = request.user;
+    const { id } = request.user;
 
     const listOrders = container.resolve(ListOrdersService);
 
-    const orders = await listOrders.execute(perfil, id);
+    const orders = await listOrders.execute(id);
 
     return response.json(orders);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
     const id_usuario = request.user.id;
-    const { status, pedido_produtos, valor_produtos } = request.body;
+    const {
+      status,
+      pedido_produtos,
+      valor_produtos,
+      endereco_entrega,
+    } = request.body;
 
     const createOrder = container.resolve(CreateOrderService);
 
@@ -25,6 +30,8 @@ export default class OrdersController {
       id_usuario,
       status,
       pedido_produtos,
+      valor_produtos,
+      endereco_entrega,
     });
 
     return response.json(order);

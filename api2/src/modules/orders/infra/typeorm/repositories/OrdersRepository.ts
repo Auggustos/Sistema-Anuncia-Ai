@@ -21,9 +21,10 @@ class OrdersRepository implements IOrdersRepository {
     return product;
   }
 
-  public async findAll(): Promise<Order[]> {
+  public async findAll(id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
       relations: ['pedido_produtos', 'pedido_produtos.produto'],
+      where: { id_usuario: id },
     });
 
     return orders;
