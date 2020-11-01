@@ -35,8 +35,9 @@ export class AtualizaUsuarioComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.apiService.getUsuario(this.authService.getUserId()).subscribe(response => {
-      console.log(response)
+    let userId = this.authService.getUserId();
+    this.apiService.getUsuario(userId).subscribe(response => {
+      //console.log(response)
         this.userForm.controls['nome'].setValue(response.nome);
         this.userForm.controls['sobrenome'].setValue(response.sobrenome);
         this.userForm.controls['endereco'].setValue(response.endereco);
