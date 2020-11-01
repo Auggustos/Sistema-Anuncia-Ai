@@ -49,14 +49,20 @@ export class GerirProdutosComponent implements OnInit {
     this.router.navigateByUrl(url.replace('ID',idProduto)).then(success => location.reload())
   }
   excluiAnuncio(idProduto: string) {
-
     this.dialogService.showConfirm("Excluir?", "Voce realmente deseja excluir este produto?").then(
       result => {
         if(result.value){
-          console.log("apaga")
-        }else{
-          console.log("não apaga");
-        } 
+          this.apiService.deletaProduto(idProduto, this.authService.token).subscribe(
+            success => {
+              this.dialogService.showSuccess(`Produto deletado com sucesso!`, "Deletado!").then(result => {
+                this.router.navigateByUrl('').then(success => location.reload())
+              });
+            },
+            error => {
+              this.dialogService.showError('Erro ao deletar, tente novamente!', "Erro!");
+            }
+          );
+        }
       }
     );
   }
