@@ -15,10 +15,4 @@ export default {
       return callback(null, fileName);
     },
   }),
-  fileFilter(req, file, cb) {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      return cb(null, true);
-    }
-    return cb(null, false);
-  },
 };

@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/shared/infra/http/server.ts",
-    "start": "ts-node src/shared/infra/http/server.ts",
+    "start": "ts-node dist/shared/infra/http/server.js",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
@@ -38,9 +38,16 @@
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "2.21.2",
     "eslint-plugin-prettier": "^3.1.4",
+    "json-loader": "^0.5.7",
     "prettier": "^2.1.2",
+    "ts-loader": "^8.0.7",
     "ts-node-dev": "^1.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.5"
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "3.9.6",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0",
+    "webpack-node-externals": "^2.5.2"
   }
 }
