@@ -22,28 +22,80 @@ let ELEMENT_DATA: PedidoProduto[] = []
 })
 export class ModalVisualizarPedidoComponent implements OnInit {
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Nome', 'Descrição', 'Valor','Status', 'Quantidade'];
+  displayedColumns = ['Nome', 'Descrição', 'Valor', 'Status', 'Quantidade'];
+  displayedColumns1 = ['Nome', 'Descrição', 'Valor', 'Status', 'Quantidade', 'Ações'];
+
+  status;
+
+  statusPedido: { id: String, status: number }[] = [];
+  situacaoPedido = [{ id: 0, nome: 'Em Análise' }, { id: 1, nome: 'Em Rota de entrega' }, { id: 2, nome: 'Entregue' }, { id: 3, nome: 'Não Disponível' }];
 
   constructor(
-    private apiService: ApiService, 
-    private authService: AuthService, 
-    private dialogService: DialogService, 
+    private apiService: ApiService,
+    private authService: AuthService,
+    private dialogService: DialogService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
-
+  }
 
   ngOnInit(): void {
-    ELEMENT_DATA = this.data.pedidoProduto;
-    this.atualizaTabela();  
-    console.log(this.data.pedidoProduto)
-   }
+    if (this.data.vendedor) {
+      ELEMENT_DATA = this.data.pedidoProdutos;
+      console.log(ELEMENT_DATA)
+      this.atualizaTabela();
+    } else {
+      ELEMENT_DATA = this.data.pedidoProduto;
+      this.atualizaTabela();
+    }
+  }
 
   goBack() {
     window.history.back();
   }
   atualizaTabela() {
     this.dataSource = ELEMENT_DATA;
+  }
+  onChangeStatus(idProduto, status) {
+    let flag = 0;
+    if (this.statusPedido.length > 0) {
+      for (let i = 0; i < this.statusPedido.length; i++) {
+        if (this.statusPedido[i].id == idProduto) {
+          flag = 1;
+          if (flag == 1) {
+            this.statusPedido[i].status = status;
+            break;
+          }
+        }
+      }
+      if (flag == 0) {
+        this.statusPedido.push({ id: idProduto, status: status });
+      }
+    } else {
+      this.statusPedido.push({ id: idProduto, status: status });
+    }
+    this.status = status;
+    // console.log(this.status)
+  }
+  alteraStatus(idProduto) {
+    this.statusPedido.forEach(sp => {
+      if (idProduto == sp.id) {
+        let body = {
+          id: sp.id,
+          status: sp.status
+        }
+        this.apiService.mudaStatus(body, this.authService.token).subscribe(success => {
+          this.dialogService.showSuccess(`Status de pedido atualizado com sucesso!`, 'Status Atualizado!').then(result => {
+            if (sp.status == 1) {
+              this.dialogService.showSuccess(`Entre em contato com o cliente para combinar pagamento e entrega!`, 'Contate o Cliente!').then(result => { });
+            }
+          });
+        },
+          error => {
+            this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
+          });
+      }
+    })
   }
 
 }

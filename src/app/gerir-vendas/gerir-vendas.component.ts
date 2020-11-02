@@ -6,6 +6,19 @@ import { ModalVisualizarPedidoComponent } from '../modais/modal-visualizar-pedid
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { PedidoProduto } from '../classes/pedidoProduto.class';
+import { Usuario } from '../classes/usuario.class';
+
+export interface Vendas {
+  criado_em: Date,
+  id: string,
+  pedido_produtos: PedidoProduto[],
+  status: number,
+  usuario: Usuario,
+  valor_final: number,
+}
+let ELEMENT_DATA: Vendas[] = [];
+
 @Component({
   selector: 'app-gerir-vendas',
   templateUrl: './gerir-vendas.component.html',
@@ -18,10 +31,11 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
+
 export class GerirVendasComponent implements OnInit {
   situacaoSelecionada = 0;
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Cliente', 'Celular', 'Data', 'Valor', 'Situação', 'Ações'];
+  displayedColumns = ['Cliente', 'Celular', 'Data', 'Valor', 'Ações'];
   expandedElement: ProdutosVendidos | null;
 
   situacaoPedido = [{ id: 0, nome: 'Cancelado' }, { id: 1, nome: 'Aprovado' }, { id: 2, nome: 'Em trânsito' }];
@@ -29,9 +43,13 @@ export class GerirVendasComponent implements OnInit {
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
   ngOnInit() {
-    this.apiService.getVendas(this.authService.token).subscribe( response =>{
-      console.log(response);
-    },error =>{
+    let vendas: Vendas[] = [];
+    this.apiService.getVendas(this.authService.token).subscribe(response => {
+      vendas = response;
+      ELEMENT_DATA = response;
+      this.atualizaTabela();
+      console.log(vendas);
+    }, error => {
 
     })
 
@@ -41,18 +59,22 @@ export class GerirVendasComponent implements OnInit {
     this.dialogService.showSuccess("Deu Bom", "Vendas geridas com sucesso!");
   }
 
-  visualizaPedido(id: number) {
+  visualizaPedido(pedidoProdutos: PedidoProduto) {
 
     this.dialog.open(ModalVisualizarPedidoComponent, {
       width: '70%',
       height: '601px',
       data: {
-        idPedido: id,
+        pedidoProdutos: pedidoProdutos,
+        vendedor: true,
       }
     });
   }
   goBack() {
     window.history.back();
+  }
+  atualizaTabela() {
+    this.dataSource = ELEMENT_DATA;
   }
 
 }
@@ -66,69 +88,5 @@ export interface ProdutosVendidos {
   data: Date;
 }
 
-const ELEMENT_DATA: ProdutosVendidos[] = [
-  {
-    cliente: 'Paulo',
-    celular: '991543979',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  },
-  {
-    cliente: 'Marcos',
-    celular: '998454746',
-    valor: 79,
-    situacao: 2,
-    data: new Date()
-  },
-  {
-    cliente: 'Juca',
-    celular: '991543979',
-    valor: 79,
-    situacao: 2,
-    data: new Date()
-  },
-  {
-    cliente: 'Xuxa',
-    celular: '992297930',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  },
-  {
-    cliente: 'Sasha',
-    celular: '992297930',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  },
-  {
-    cliente: 'Pelé',
-    celular: '991543979',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  },
-  {
-    cliente: 'Cr7',
-    celular: '998454746',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  },
-  {
-    cliente: 'Messi',
-    celular: '992297930',
-    valor: 79,
-    situacao: 2,
-    data: new Date()
-  },
-  {
-    cliente: 'Ribamar',
-    celular: '991543979',
-    valor: 79,
-    situacao: 1,
-    data: new Date()
-  }
-];
+
 

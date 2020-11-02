@@ -60,4 +60,7 @@ export class ApiService {
     return this.http.get(`${this.url}/sales`,token);
   }
 
+  mudaStatus(body,token):Observable<any>{
+    return this.http.put(`${this.url}/sales`,body,token);
+  }
 }
