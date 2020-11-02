@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service';
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
@@ -26,7 +27,7 @@ export interface PedidoProdutoAux {
   quantidade: number,
   status: number,
   valor_unitario: number,
-  valor:number,
+  valor: number,
 }
 
 @Component({
@@ -104,23 +105,32 @@ export class CarrinhoComponent implements OnInit {
   }
 
   adiciona(idItem) {
-    ELEMENT_DATA.forEach(
-      produto => {
-        if (produto.id == idItem) {
-          produto.quantidade++;
+    let produto: Produto;
+    this.apiService.getProduto(idItem, this.authService.token).subscribe(response => {
+      produto = response;
+      ELEMENT_DATA.forEach(
+        produtoTabela => {
+          if (produtoTabela.id == idItem && produtoTabela.quantidade < produto.quantidade) {
+            produtoTabela.quantidade++;
+          }
+        })
+      this.dataSource.data = ELEMENT_DATA;
+      this.authService.limpaCarrinho();
+      ELEMENT_DATA.forEach(
+        produto => {
+          this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade, nome: produto.item });
         }
-      }
-    )
-    this.dataSource.data = ELEMENT_DATA;
-    this.authService.limpaCarrinho();
-    ELEMENT_DATA.forEach(
-      produto => {
-        this.carrinho.push({ produtoId: produto.id, idCliente: this.authService.getUserId(), preco: produto.cost, quantidade: produto.quantidade, nome: produto.item });
-      }
-    )
-    var textoCarrinho = JSON.stringify(this.carrinho);
-    this.authService.setCarrinho(textoCarrinho);
-    location.reload();
+      )
+      var textoCarrinho = JSON.stringify(this.carrinho);
+      this.authService.setCarrinho(textoCarrinho);
+      location.reload();
+    });
+
+
+
+
+
+
   }
   remove(idItem) {
     ELEMENT_DATA.forEach(
@@ -148,9 +158,9 @@ export class CarrinhoComponent implements OnInit {
   montaPedido() {
     let produtoPedido: PedidoProdutoAux[] = []
     ELEMENT_DATA.forEach(produto => {
-      let produtoAux: PedidoProdutoAux = {id_produto: '',quantidade: 0,status: 0, valor_unitario: 0,valor: 0};
+      let produtoAux: PedidoProdutoAux = { id_produto: '', quantidade: 0, status: 0, valor_unitario: 0, valor: 0 };
       produtoAux.id_produto = produto.id,
-      produtoAux.quantidade = produto.quantidade
+        produtoAux.quantidade = produto.quantidade
       produtoAux.status = 0;
       produtoAux.valor_unitario = produto.cost;
       produtoAux.valor = produto.cost * produto.quantidade;
@@ -161,12 +171,17 @@ export class CarrinhoComponent implements OnInit {
 
   finalizaPedido() {
     let body = this.loadBody();
-    this.apiService.postPedido(body,this.authService.token).subscribe(success =>{
-      this.limpaCarrinho();
-      this.dialogService.showSuccess(`Compra Efetuada, aguarde a aprovação e contato do vendedor!`,"Compra Efetuada!").then(result => {
-        this.router.navigateByUrl('/pedidos').then(success => location.reload())
+    this.apiService.postPedido(body, this.authService.token).subscribe(success => {
+
+      this.dialogService.showSuccess(`Compra Efetuada, aguarde a aprovação e contato do vendedor!`, "Compra Efetuada!").then(result => {
+        if (result.value) {
+          this.router.navigateByUrl('pedidos').then(success => {
+            this.limpaCarrinho()
+            location.reload()
+          })
+        }
       });
-    },error =>{
+    }, error => {
       this.dialogService.showError(`Erro ao finalizar compra`, "Erro!")
     })
   }

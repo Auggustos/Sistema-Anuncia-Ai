@@ -59,8 +59,6 @@ body {
     margin-right: 0;
 }
 
-.imagem-produto {}
-
 .button-voltar {
     margin-left: 131px;
     background-color: #b24c4c;
@@ -75,4 +73,26 @@ body {
     margin-left: 230%;
     background-color: #4CB258;
     color: white;
+}
+
+.teste-pai {
+    position: relative;
+}
+
+.teste-filho {
+    color: #b24c4c;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.teste-filho1 {
+    color: #4c95b2;
+    position: absolute;
+    top: 0;
+    margin-left: 180px;
+}
+
+.mat-content {
+    margin-top: 10px;
 }

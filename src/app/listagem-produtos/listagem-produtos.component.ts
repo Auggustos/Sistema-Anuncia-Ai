@@ -35,21 +35,25 @@ export class ListagemProdutosComponent implements OnInit {
 
   showFiller = false;
 
+  quantidadeProduto: { id: string, quantidade: number }[] = [];
+
   itensSidebar: string[] = ['Meus dados', 'Minhas compras'];
 
   ngOnInit(): void {
-
+    this.authService.limpaCarrinho();
     this.apiService.getProdutos().subscribe(response => {
       if (this.authService.isLoggedIn()) {
         const userId = this.authService.getUserId();
         response.forEach(produto => {
-          if (produto.id_usuario != userId) {
+          if (produto.id_usuario != userId && produto.quantidade > 0) {
             this.produtos.push(produto);
           }
         })
       } else {
         response.forEach(produto => {
-          this.produtos.push(produto);
+          if (produto.quantidade > 0) {
+            this.produtos.push(produto);
+          }
         }
         )
       }
@@ -58,7 +62,29 @@ export class ListagemProdutosComponent implements OnInit {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
       });
   }
-  adicionaAoCarrinho(idProduto: string, precoProduto: number, nome: string) {
+  adicionaAoCarrinho(idProduto: string, precoProduto: number, nome: string, quantidade: number) {
+    let flag = 0;
+    if (this.quantidadeProduto.length > 0) {
+      for (let i = 0; i < this.quantidadeProduto.length; i++) {
+        if (this.quantidadeProduto[i].id == idProduto) {
+          flag = 1;
+          if (flag == 1) {
+            this.quantidadeProduto[i].quantidade--;
+            break;
+          }
+        }
+      }
+      if (flag == 0) {
+        this.quantidadeProduto.push({ id: idProduto, quantidade: quantidade - 1 });
+      }
+    } else {
+      this.quantidadeProduto.push({ id: idProduto, quantidade: quantidade - 1 });
+    }
+
+
+
+
+
     if (this.carrinho.length > 0) {
       let flag = 0;
       for (let i = 0; i < this.carrinho.length; i++) {
@@ -87,13 +113,29 @@ export class ListagemProdutosComponent implements OnInit {
       })
     }
   }
+  desabilitaCarrinho(idProduto): boolean {
+    let flag = 0;
+    if (this.quantidadeProduto.length > 0) {
+      for (let i = 0; i < this.quantidadeProduto.length; i++) {
+        if (this.quantidadeProduto[i].id == idProduto && this.quantidadeProduto[i].quantidade == 0) {
+          flag = 1;
+          return false;
+        }
+      }
+      if (flag == 0) {
+        return true
+      }
+    } else {
+      return true;
+    }
+  }
 
   visualizaProduto(id: string) {
     if (!this.authService.isLoggedIn()) {
       this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       })
-    }else{
+    } else {
       this.dialog.open(ModalVisualizarProdutoComponent, {
         width: '20%',
         height: '601px',
