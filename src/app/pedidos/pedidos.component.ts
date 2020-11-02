@@ -27,16 +27,12 @@ export class PedidosComponent implements OnInit {
 
   situacaoSelecionada = 0;
   dataSource = ELEMENT_DATA;
-  displayedColumns = ['Pedido', 'Data', 'Valor', 'Situação', 'Ações'];
+  displayedColumns = ['Pedido', 'Data', 'Valor', 'Ações'];
   expandedElement: ProdutosVendidos | null;
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
   ngOnInit() {
     this.montaTabela();
-  }
-
-  testaDialog() {
-    this.dialogService.showSuccess("Deu Bom", "Vendas geridas com sucesso!");
   }
 
   visualizaPedido(pedidoProduto: PedidoProduto) {

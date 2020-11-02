@@ -42,7 +42,6 @@ export class ModalVisualizarPedidoComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.vendedor) {
       ELEMENT_DATA = this.data.pedidoProdutos;
-      console.log(ELEMENT_DATA)
       this.atualizaTabela();
     } else {
       ELEMENT_DATA = this.data.pedidoProduto;
@@ -75,7 +74,6 @@ export class ModalVisualizarPedidoComponent implements OnInit {
       this.statusPedido.push({ id: idProduto, status: status });
     }
     this.status = status;
-    // console.log(this.status)
   }
   alteraStatus(idProduto) {
     this.statusPedido.forEach(sp => {

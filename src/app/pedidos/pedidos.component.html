@@ -24,15 +24,6 @@
             </ng-container>
 
             <!-- Symbol Column -->
-            <ng-container matColumnDef="Situação">
-                <th mat-header-cell *matHeaderCellDef> Situação </th>
-                <td mat-cell *matCellDef="let element">
-                    dale
-                    <span *ngIf="element.situacao === 'Aprovado'" [ngClass]="{'aprovado': element.situacao === 'Aprovado'}"> {{element.situacao}}</span>
-                    <span *ngIf="element.situacao === 'Em Análise'" [ngClass]="{'em-transito': element.situacao === 'Em Análise'}"> {{element.situacao}}</span>
-                    <span *ngIf="element.situacao === 'Cancelado'" [ngClass]="{'cancelado': element.situacao === 'Cancelado'}"> {{element.situacao}}</span>
-                </td>
-            </ng-container>
             <ng-container matColumnDef="Ações">
                 <th mat-header-cell *matHeaderCellDef> Ações </th>
                 <td mat-cell *matCellDef="let element">

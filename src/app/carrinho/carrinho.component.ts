@@ -164,7 +164,7 @@ export class CarrinhoComponent implements OnInit {
     this.apiService.postPedido(body,this.authService.token).subscribe(success =>{
       this.limpaCarrinho();
       this.dialogService.showSuccess(`Compra Efetuada, aguarde a aprovação e contato do vendedor!`,"Compra Efetuada!").then(result => {
-        this.router.navigateByUrl('pedidos').then(success => location.reload())
+        this.router.navigateByUrl('/pedidos').then(success => location.reload())
       });
     },error =>{
       this.dialogService.showError(`Erro ao finalizar compra`, "Erro!")
