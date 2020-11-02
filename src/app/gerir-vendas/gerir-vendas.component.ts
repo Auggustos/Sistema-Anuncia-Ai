@@ -48,9 +48,8 @@ export class GerirVendasComponent implements OnInit {
       vendas = response;
       ELEMENT_DATA = response;
       this.atualizaTabela();
-      console.log(vendas);
     }, error => {
-
+      this.dialogService.showError(`Erro ao obter dados das vendas`, "Erro!")
     })
 
   }
