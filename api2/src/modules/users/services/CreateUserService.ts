@@ -45,6 +45,10 @@ class CreateUserService {
       throw new AppError('Email já está sendo utilizado');
     }
 
+    if (!senha) {
+      throw new AppError('Você não informou a senha');
+    }
+
     const hashedPassword = await hash(senha, 8);
     const user = await this.usersRepository.create({
       nome,
