@@ -3,6 +3,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DialogService } from '../shared/services/dialog/dialog.service'
 import { MatDialog } from '@angular/material/dialog';
 import { ModalVisualizarPedidoComponent } from '../modais/modal-visualizar-pedido/modal-visualizar-pedido.component';
+import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../shared/services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-gerir-vendas',
   templateUrl: './gerir-vendas.component.html',
@@ -23,9 +26,14 @@ export class GerirVendasComponent implements OnInit {
 
   situacaoPedido = [{ id: 0, nome: 'Cancelado' }, { id: 1, nome: 'Aprovado' }, { id: 2, nome: 'Em trânsito' }];
 
-  constructor(private dialogService: DialogService, public dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
+    public dialog: MatDialog) { }
   ngOnInit() {
+    this.apiService.getVendas(this.authService.token).subscribe( response =>{
+      console.log(response);
+    },error =>{
 
+    })
 
   }
 

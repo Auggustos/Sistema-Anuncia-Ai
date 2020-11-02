@@ -56,4 +56,8 @@ export class ApiService {
     return this.http.post(`${this.url}/order`,body,token);
   }
 
+  getVendas(token): Observable<any> { // retorna todos os produtos
+    return this.http.get(`${this.url}/sales`,token);
+  }
+
 }
