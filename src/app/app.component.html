@@ -31,6 +31,8 @@
                 <mat-list-option *ngIf="perfil == 0 || perfil == 1" [routerLinkActive]="'active'" [routerLink]="['pedidos']">Pedidos
                 </mat-list-option>
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['']">Ofertas</mat-list-option>
+                <mat-list-option *ngIf="perfil == 1" [routerLinkActive]="'active'" [routerLink]="['relatorio-vendas']">Relatório de Vendas
+                </mat-list-option>
             </mat-selection-list>
             <!-- <mat-selection-list #shoes [multiple]="false">
                 <mat-list-option *ngIf="((item.nome=='Meus Dados') && (perfil==0))" *ngFor="let item of itensSidebar" [value]="item.rota" (click)="onRowClicked(item)">

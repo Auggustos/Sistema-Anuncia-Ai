@@ -36,6 +36,9 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
+import { ChartsModule } from 'ng2-charts'
+import { RelatorioVendasComponent } from './relatorio-vendas/relatorio-vendas.component';
+import { ChartVendasComponent } from './chart-vendas/chart-vendas.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { AppComponent } from './app.component';
     CarrinhoComponent,
     ErrorComponent,
     AppComponent,
+    RelatorioVendasComponent,
+    ChartVendasComponent,
 
 
   ],
@@ -77,6 +82,7 @@ import { AppComponent } from './app.component';
     MatIconModule,
     MatCardModule,
     MatListModule,
+    ChartsModule,
     FormsModule,
   ],
   providers: [

@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
   carrinho;
   usuario = '';
   perfil = 3;
+  usuarioId = '';
 
   ngOnInit() {
 
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
     } else {
       if (this.authService.getUser().length > 1) {
         let userId = this.authService.getUserId();
+        this.usuarioId = userId;
         this.apiService.getUsuario(userId).subscribe(response => {
           this.usuario = response.nome;
           this.perfil = parseInt(this.authService.getPerfil());

@@ -10,6 +10,7 @@ import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.componen
 import { GerirVendasComponent } from './gerir-vendas/gerir-vendas.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { RelatorioVendasComponent } from './relatorio-vendas/relatorio-vendas.component';
 import { AuthGuard } from './shared/services/auth.service';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 const routes: Routes = [
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'produto/:id/atualiza',
     component: AtualizaProdutoComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'relatorio-vendas',
+    component: RelatorioVendasComponent, canActivate: [AuthGuard]
   },
   {
     path: '**',
